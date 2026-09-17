@@ -1,0 +1,42 @@
+:root {
+  --app-frame-width: 100%;
+  --app-frame-height: 100dvh;
+  --app-frame-radius: 0;
+}
+
+.site-shell {
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+}
+
+.app-frame {
+  position: relative;
+  isolation: isolate;
+  width: var(--app-frame-width);
+  height: var(--app-frame-height);
+  overflow: clip;
+  border-radius: var(--app-frame-radius);
+  background: #fff;
+}
+
+.app-content {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --app-frame-width: 26.875rem;
+    --app-frame-height: min(56rem, calc(100dvh - 3rem));
+    --app-frame-radius: 2rem;
+  }
+
+  .app-frame {
+    outline: 1px solid rgb(255 255 255 / 70%);
+    box-shadow: var(--shadow-glass);
+  }
+}

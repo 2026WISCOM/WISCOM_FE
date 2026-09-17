@@ -1,5 +1,5 @@
-import { useId, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useId, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import IconButton from "../ui/IconButton";
 import NavigationMenu from "./NavigationMenu";
@@ -11,19 +11,24 @@ type NavbarProps = {
 
 export default function Navbar({ variant = "navy" }: NavbarProps) {
   const menuId = useId();
+  const { key } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [key]);
 
   return (
     <header
       data-variant={variant}
-      className="navbar fixed z-50 mx-auto"
+      className="navbar absolute z-50"
     >
       <div className="navbar-bar glass-effect flex items-center justify-between gap-4 rounded-full">
         <Link
           to={ROUTES.home}
           onClick={close}
-          className="ml-3 rounded-sm text-lg font-semibold tracking-[-0.04em] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current sm:ml-4 sm:text-xl"
+          className="ml-3 rounded-sm text-lg font-semibold tracking-[-0.04em] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current"
         >
           2026 WISCOM
         </Link>

@@ -5,11 +5,13 @@ export default function SiteLayout() {
   const { key } = useLocation();
 
   return (
-    <>
-      <Navbar key={key} variant="navy" />
-      <main>
-        <Outlet />
-      </main>
-    </>
+    <div className="site-shell">
+      <div className="app-frame">
+        <Navbar variant="navy" />
+        <main key={key} className="app-content">
+          <Outlet />
+        </main>
+      </div>
+    </div>
   );
 }

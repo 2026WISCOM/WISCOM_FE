@@ -53,10 +53,11 @@ export default function Drawer({
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <div className="drawer-panel glass-effect ml-auto flex h-full w-1/2 min-w-[min(20rem,100vw)] flex-col overflow-hidden text-navy">
+      <div className="drawer-panel ml-auto flex h-full flex-col text-navy">
+        <div aria-hidden="true" className="drawer-surface glass-effect" />
         <div
           className={cn(
-            "flex shrink-0 items-center justify-end px-4 pt-[max(1.5rem,env(safe-area-inset-top))] sm:px-8",
+            "flex shrink-0 items-center justify-end px-4 pt-[max(1.5rem,env(safe-area-inset-top))]",
             headerClassName,
           )}
         >

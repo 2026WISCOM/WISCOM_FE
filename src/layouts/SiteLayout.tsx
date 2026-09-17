@@ -6,11 +6,12 @@ import { ROUTES } from "../constants/routes";
 export default function SiteLayout() {
   const { key, pathname } = useLocation();
   const isHomePage = pathname === ROUTES.home;
+  const hasDarkBackground = isHomePage || pathname === ROUTES.participants;
 
   return (
     <div className="site-shell">
       <div className="app-frame">
-        <Navbar variant={isHomePage ? "white" : "navy"} />
+        <Navbar variant={hasDarkBackground ? "white" : "navy"} />
         <div key={key} className="app-content">
           <main className="grid min-h-full">
             <Outlet />

@@ -1,0 +1,49 @@
+.drawer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: clip;
+  border: 0;
+  background: transparent;
+  --drawer-duration: 480ms;
+  --drawer-easing: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition:
+    display var(--drawer-duration) allow-discrete,
+    overlay var(--drawer-duration) allow-discrete;
+}
+
+.drawer::backdrop {
+  background: rgb(20 38 57 / 16%);
+}
+
+.drawer-panel {
+  transform: translate3d(100%, 0, 0);
+  will-change: transform;
+  transition: transform var(--drawer-duration) var(--drawer-easing);
+}
+
+.drawer[open] .drawer-panel {
+  transform: translate3d(0, 0, 0);
+}
+
+@starting-style {
+  .drawer[open] .drawer-panel {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawer-panel {
+    transition: none;
+  }
+
+  .drawer-panel {
+    will-change: auto;
+  }
+}

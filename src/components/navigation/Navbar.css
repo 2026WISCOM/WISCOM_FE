@@ -1,0 +1,48 @@
+.navbar,
+.navigation-menu-header {
+  --navbar-edge: 1rem;
+  --navbar-top: max(1rem, env(safe-area-inset-top));
+  --navbar-height: 4rem;
+  --navbar-padding: 0.5rem;
+  --navbar-max-width: 90rem;
+}
+
+.navbar {
+  inset-inline: var(--navbar-edge);
+  top: var(--navbar-top);
+  max-width: var(--navbar-max-width);
+  color: var(--color-navy);
+}
+
+.navbar-bar {
+  height: var(--navbar-height);
+  padding-inline: var(--navbar-padding);
+}
+
+.navigation-menu-header {
+  height: var(--navbar-height);
+  margin-top: calc(var(--navbar-top) - 1px);
+  padding-top: 0;
+  padding-right: calc(
+    max(var(--navbar-edge), (100vw - var(--navbar-max-width)) / 2)
+    + var(--navbar-padding)
+  );
+}
+
+@media (min-width: 640px) {
+  .navbar,
+  .navigation-menu-header {
+    --navbar-edge: 2rem;
+    --navbar-top: max(1.5rem, env(safe-area-inset-top));
+    --navbar-height: 4.5rem;
+    --navbar-padding: 0.75rem;
+  }
+}
+
+.navbar[data-variant="white"] {
+  --glass-background: rgb(25 39 54 / 28%);
+  --glass-fallback-background: rgb(25 39 54 / 72%);
+  --glass-solid-background: #192736;
+  --glass-border: rgb(255 255 255 / 30%);
+  color: #fff;
+}

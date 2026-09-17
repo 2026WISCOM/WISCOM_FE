@@ -1,0 +1,11 @@
+.home-page {
+  --glass-background: rgb(255 255 255 / 8%);
+  --glass-fallback-background: #263343;
+  --glass-solid-background: #263343;
+  --glass-border: rgb(255 255 255 / 24%);
+  background-color: #101b2b;
+  background-image:
+    radial-gradient(ellipse at 15% 85%, rgb(66 123 151 / 50%), transparent 60%),
+    radial-gradient(ellipse at 90% 65%, rgb(91 83 142 / 35%), transparent 55%),
+    linear-gradient(160deg, #101b2b, #203951);
+}

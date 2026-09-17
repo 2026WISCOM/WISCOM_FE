@@ -28,7 +28,7 @@ export default function Navbar({ variant = "navy" }: NavbarProps) {
         <Link
           to={ROUTES.home}
           onClick={close}
-          className="ml-3 rounded-sm text-lg font-semibold tracking-[-0.04em] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current"
+          className="heading-small ml-3 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current"
         >
           2026 WISCOM
         </Link>

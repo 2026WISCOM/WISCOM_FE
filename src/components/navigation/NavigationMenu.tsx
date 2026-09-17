@@ -21,7 +21,7 @@ export default function NavigationMenu(props: NavigationMenuProps) {
                 onClick={props.onClose}
                 className={({ isActive }) =>
                   cn(
-                    "flex min-h-14 items-center rounded-2xl px-4 py-3 text-xl font-medium tracking-tight transition-colors hover:bg-navy/10 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-navy motion-reduce:transition-none",
+                    "heading-medium flex min-h-14 items-center rounded-2xl px-4 py-3 transition-colors hover:bg-navy/10 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-navy motion-reduce:transition-none",
                     isActive && "bg-navy/10",
                   )
                 }

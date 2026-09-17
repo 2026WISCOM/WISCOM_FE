@@ -8,7 +8,7 @@ export default function HomePage() {
       <h1 className="sr-only">2026 WISCOM</h1>
       <nav aria-label="전시 바로가기" className="grid grid-cols-2 gap-x-[11px] gap-y-4">
         {HOME_QUICK_LINKS.map(({ label, path }) => (
-          <GlassLink key={path} to={path}>
+          <GlassLink key={path} to={path} className="body-medium">
             {label}
           </GlassLink>
         ))}

@@ -1,8 +1,13 @@
 @import "tailwindcss";
+@import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 @import "./styles/utilities/glass.css";
+@import "./styles/utilities/typography.css";
 @import "./styles/layout/mobile-frame.css";
 
 @theme {
+  --font-sans: "Pretendard Variable", sans-serif;
+  --font-serif: var(--font-sans);
+  --font-mono: var(--font-sans);
   --color-navy: #264565;
   --color-canvas: #f1f2f4;
   --shadow-glass:
@@ -33,6 +38,7 @@
 }
 
 html {
+  font-family: var(--font-sans);
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;

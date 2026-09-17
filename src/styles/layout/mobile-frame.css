@@ -25,7 +25,6 @@
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior-y: contain;
-  scrollbar-width: thin;
 }
 
 @media (min-width: 640px) {

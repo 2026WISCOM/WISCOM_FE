@@ -1,4 +1,6 @@
 import { useId, useState } from "react";
+import type { Participant } from "../types/participant";
+import ParticipantDetailModal from "./participants/components/ParticipantDetailModal";
 import ParticipantFilters from "./participants/components/ParticipantFilters";
 import ParticipantItem from "./participants/components/ParticipantItem";
 import { ALL_PARTICIPANTS_FILTER } from "./participants/constants";
@@ -8,6 +10,14 @@ import { filterParticipants } from "./participants/utils/filterParticipants";
 
 export default function ParticipantsPage() {
 	const resultsId = useId();
+	const detailId = useId();
+	const [selectedParticipant, setSelectedParticipant] = useState<Participant | null>(null);
+	const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+	function openParticipant(participant: Participant) {
+		setSelectedParticipant(participant);
+		setIsDetailOpen(true);
+	}
 	const [selectedFilter, setSelectedFilter] = useState<ParticipantFilter>(
 		ALL_PARTICIPANTS_FILTER,
 	);
@@ -33,9 +43,17 @@ export default function ParticipantsPage() {
 					<ParticipantItem
 						key={participant.id}
 						participant={participant}
+						onSelect={openParticipant}
+						dialogId={detailId}
 					/>
 				))}
 			</ul>
+			<ParticipantDetailModal
+				id={detailId}
+				participant={selectedParticipant}
+				isOpen={isDetailOpen}
+				onClose={() => setIsDetailOpen(false)}
+			/>
 		</section>
 	);
 }

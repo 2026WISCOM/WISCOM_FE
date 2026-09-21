@@ -1,8 +1,9 @@
-import { useEffect, useId, useRef } from "react";
+import { useId } from "react";
 import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
+import { useModalDialog } from "../../hooks/useModalDialog";
 import { cn } from "../../utils/cn";
-import IconButton from "./IconButton";
+import CloseButton from "./CloseButton";
 import "./Drawer.css";
 
 type DrawerProps = {
@@ -22,29 +23,15 @@ export default function Drawer({
   children,
   headerClassName,
 }: DrawerProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialogRef = useModalDialog(isOpen);
   const titleId = useId();
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!isOpen || !dialog) return;
-
-    const previousOverflow = document.body.style.overflow;
-    dialog.showModal();
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      dialog.close();
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [isOpen]);
 
   return createPortal(
     <dialog
       ref={dialogRef}
       id={id}
       aria-labelledby={titleId}
-      className="drawer"
+      className="frame-overlay drawer"
       onCancel={(event) => {
         event.preventDefault();
         onClose();
@@ -62,20 +49,7 @@ export default function Drawer({
           )}
         >
           <h2 id={titleId} className="sr-only">{title}</h2>
-          <IconButton aria-label="메뉴 닫기" onClick={onClose}>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.7"
-              strokeLinecap="round"
-              aria-hidden="true"
-            >
-              <path d="m6 6 12 12M6 18 18 6" />
-            </svg>
-          </IconButton>
+          <CloseButton aria-label="메뉴 닫기" onClick={onClose} />
         </div>
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain">
           {children}

@@ -1,0 +1,57 @@
+.modal {
+  --modal-duration: 240ms;
+  --modal-content-duration: 140ms;
+  --modal-close-duration: calc(var(--modal-content-duration) + var(--modal-duration));
+  background: rgb(6 18 32 / 0%);
+  -webkit-backdrop-filter: blur(0);
+  backdrop-filter: blur(0);
+  transition:
+    background-color var(--modal-duration) ease var(--modal-content-duration),
+    -webkit-backdrop-filter var(--modal-duration) ease var(--modal-content-duration),
+    backdrop-filter var(--modal-duration) ease var(--modal-content-duration),
+    display var(--modal-close-duration) allow-discrete,
+    overlay var(--modal-close-duration) allow-discrete;
+}
+
+.modal[open] {
+  background: rgb(6 18 32 / 55%);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition-delay: 0s;
+}
+
+.modal-content,
+.modal-close {
+  opacity: 0;
+  transition: opacity var(--modal-content-duration) ease;
+}
+
+.modal[open] .modal-content,
+.modal[open] .modal-close {
+  opacity: 1;
+}
+
+.modal::backdrop {
+  background: transparent;
+}
+
+@starting-style {
+  .modal[open] .modal-content,
+  .modal[open] .modal-close {
+    opacity: 0;
+  }
+
+  .modal[open] {
+    background: rgb(6 18 32 / 0%);
+    -webkit-backdrop-filter: blur(0);
+    backdrop-filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .modal-content,
+  .modal-close {
+    transition: none;
+  }
+}

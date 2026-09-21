@@ -3,6 +3,7 @@
 @import "./styles/utilities/glass.css";
 @import "./styles/utilities/typography.css";
 @import "./styles/utilities/background.css";
+@import "./styles/utilities/overlay.css";
 @import "./styles/layout/mobile-frame.css";
 
 @theme {

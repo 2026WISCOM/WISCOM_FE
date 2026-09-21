@@ -1,15 +1,4 @@
 .drawer {
-  position: fixed;
-  inset: 0;
-  width: var(--app-frame-width);
-  max-width: none;
-  height: var(--app-frame-height);
-  max-height: none;
-  margin: auto;
-  padding: 0;
-  overflow: clip;
-  border: 0;
-  border-radius: var(--app-frame-radius);
   background: rgb(20 38 57 / 0%);
   --drawer-duration: 480ms;
   --drawer-easing: cubic-bezier(0.25, 0.8, 0.25, 1);

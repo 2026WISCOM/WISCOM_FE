@@ -24,7 +24,7 @@ export default function ProjectsPage() {
               <div className="min-w-0 break-keep">
                 <h2 className="body-medium font-bold">{project.title}</h2>
                 <p className="body-small mt-[3px]">{project.description}</p>
-                <p className="body-xsmall mt-px text-[#81909b]">{project.members.join(" ")}</p>
+                <p className="body-xsmall mt-px text-[#81909b]">{project.members.map(({ name }) => name).join(" ")}</p>
               </div>
             </Link>
           </li>

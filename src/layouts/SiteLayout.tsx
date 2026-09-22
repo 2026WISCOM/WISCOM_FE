@@ -1,9 +1,10 @@
 import { useRef } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useMatch } from "react-router-dom";
 import Navbar from "../components/navigation/Navbar";
 import Footer from "../components/layout/Footer";
 import IconButton from "../components/ui/IconButton";
 import { ROUTES } from "../constants/routes";
+import { cn } from "../utils/cn";
 
 export default function SiteLayout() {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -11,14 +12,15 @@ export default function SiteLayout() {
   const isHomePage = pathname === ROUTES.home;
   const isExhibitionPage = pathname === ROUTES.exhibition;
   const isDirectionsPage = pathname === ROUTES.directions;
+  const isProjectDetailPage = useMatch(ROUTES.projectDetail) !== null;
   const hasDarkBackground = isHomePage || isExhibitionPage || pathname === ROUTES.participants;
 
   return (
     <div className="site-shell">
       <div className="app-frame">
         <Navbar variant={hasDarkBackground ? "white" : "navy"} />
-        <div ref={contentRef} key={key} className={`app-content${isExhibitionPage ? " bg-[#0e2540]" : ""}`}>
-          <main className={isExhibitionPage || isDirectionsPage ? "grid" : "grid min-h-full"}>
+        <div ref={contentRef} key={key} className={cn("app-content", isExhibitionPage && "bg-[#0e2540]", isProjectDetailPage && "bg-[#fbfbfb]")}>
+          <main className={isExhibitionPage || isDirectionsPage || isProjectDetailPage ? "grid" : "grid min-h-full"}>
             <Outlet />
           </main>
           {!isHomePage && <Footer />}

@@ -1,7 +1,7 @@
 import type { Participant } from "../../../types/participant";
-import projectPlaceholder from "../../../assets/project-placeholder.svg";
+import { MOCK_PROJECTS } from "../../projects/data/mockProjects";
 
-const MOCK_PARTICIPANTS_PER_STUDIO = 5;
+const MOCK_PARTICIPANTS_PER_PROJECT = 5;
 
 const MOCK_PARTICIPANT_NAMES = [
   "강서연", "고유진", "구민서", "권지우", "김하은",
@@ -18,14 +18,14 @@ const MOCK_PARTICIPANT_NAMES = [
 
 export const MOCK_PARTICIPANTS: Participant[] = MOCK_PARTICIPANT_NAMES.map(
   (name, index) => {
-    const studioNumber = Math.floor(index / MOCK_PARTICIPANTS_PER_STUDIO) + 1;
+    const project = MOCK_PROJECTS[Math.floor(index / MOCK_PARTICIPANTS_PER_PROJECT)];
 
     return {
       id: `participant-${index + 1}`,
       name,
-      studioNumber,
-      projectId: `project-${studioNumber}`,
-      projectImage: projectPlaceholder,
+      studioNumber: project.studioNumber,
+      projectId: project.id,
+      projectImage: project.image,
     };
   },
 ).sort((first, second) => first.name.localeCompare(second.name, "ko"));

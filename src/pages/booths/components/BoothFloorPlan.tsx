@@ -1,11 +1,6 @@
 import { Fragment, useState } from "react";
 import { cn } from "../../../utils/cn";
-
-const BOX_COLORS = {
-  gray: { background: "#EDEDED", color: "#525159", border: "none" },
-  navy: { background: "rgba(38,69,101,0.15)", color: "#264565", border: "1px solid #264565" },
-  pink: { background: "rgba(239,121,168,0.15)", color: "#EF79A8", border: "1px solid #EF79A8" },
-};
+import { BOOTH_COLORS } from "../constants";
 
 const BOXES = [
   {
@@ -66,7 +61,7 @@ export default function BoothFloorPlan() {
       <div className="w-full">
         <div className="relative aspect-[357/557] w-full overflow-hidden rounded-[8px] bg-white [container-type:inline-size]">
           {BOXES.map(({ text, color, ...bounds }) => {
-            const colors = BOX_COLORS[color];
+            const colors = BOOTH_COLORS[color];
             const isStudio = color !== "gray";
             const isActive = isStudio && activeStudio === text;
             const Label = isStudio ? "button" : "span";

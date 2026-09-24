@@ -8,12 +8,14 @@ const MOCK_MEMBERS = [
   { name: "장은선", roles: ["디자인", "프론트엔드 개발"] },
 ];
 
-export const MOCK_PROJECTS = Array.from({ length: 12 }, (_, index) => ({
+const MOCK_STUDIO_NUMBERS = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 10];
+
+export const MOCK_PROJECTS = MOCK_STUDIO_NUMBERS.map((studioNumber, index) => ({
   id: `project-${index + 1}`,
   title: `프로젝트 ${String(index + 1).padStart(2, "0")}`,
   description: "프로젝트를 소개하는 간단한 설명입니다.",
   image: projectPlaceholder,
-  studioNumber: Math.floor(index / 3) + 1,
+  studioNumber,
   introduction: "프로젝트가 해결하려는 문제와 기획 의도를 소개하는 공간입니다.\n주요 기능과 사용 방법, 개발 과정에서의 고민을 담을 예정입니다.",
   demoFeatures: [
     "프로젝트의 주요 기능을 직접 체험할 수 있습니다.",

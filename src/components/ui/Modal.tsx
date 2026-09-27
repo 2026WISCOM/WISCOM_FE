@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useModalDialog } from "../../hooks/useModalDialog";
+import { cn } from "../../utils/cn";
 import CloseButton from "./CloseButton";
 import "./Modal.css";
 
@@ -9,10 +10,11 @@ type ModalProps = {
   isOpen: boolean;
   labelledBy: string;
   onClose: () => void;
+  contentClassName?: string;
   children: ReactNode;
 };
 
-export default function Modal({ id, isOpen, labelledBy, onClose, children }: ModalProps) {
+export default function Modal({ id, isOpen, labelledBy, onClose, contentClassName, children }: ModalProps) {
   const dialogRef = useModalDialog(isOpen);
 
   return createPortal(
@@ -41,7 +43,7 @@ export default function Modal({ id, isOpen, labelledBy, onClose, children }: Mod
         }}
       >
         <div
-          className="modal-content my-auto w-full shrink-0 py-20"
+          className={cn("modal-content w-full shrink-0", contentClassName ?? "my-auto py-20")}
           onClick={(event) => {
             if (event.target === event.currentTarget) onClose();
           }}

@@ -1,7 +1,7 @@
 import Button from "../../../components/ui/Button";
 import { PARTICIPANT_FILTERS } from "../constants";
 import type { ParticipantFilter } from "../constants";
-import { useFilterIndicator } from "../hooks/useFilterIndicator";
+import { useFilterIndicator } from "../../../hooks/useFilterIndicator";
 
 type ParticipantFiltersProps = {
   selectedFilter: ParticipantFilter;

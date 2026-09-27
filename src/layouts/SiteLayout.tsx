@@ -13,8 +13,9 @@ export default function SiteLayout() {
   const isExhibitionPage = pathname === ROUTES.exhibition;
   const isDirectionsPage = pathname === ROUTES.directions;
   const isNeverEndingStoryPage = pathname === ROUTES.neverEndingStory;
+  const isGuestbookPage = pathname === ROUTES.guestbook;
   const isProjectDetailPage = useMatch(ROUTES.projectDetail) !== null;
-  const hasDarkBackground = isHomePage || isExhibitionPage || isNeverEndingStoryPage || pathname === ROUTES.participants;
+  const hasDarkBackground = isHomePage || isExhibitionPage || isNeverEndingStoryPage || isGuestbookPage || pathname === ROUTES.participants;
 
   return (
     <div className="site-shell">

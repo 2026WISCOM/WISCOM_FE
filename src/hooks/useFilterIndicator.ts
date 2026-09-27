@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import type { ParticipantFilter } from "../constants";
 
-export function useFilterIndicator(selectedFilter: ParticipantFilter) {
+export function useFilterIndicator(selectedFilter: string) {
   const trackRef = useRef<HTMLDivElement>(null);
   const selectedButtonRef = useRef<HTMLButtonElement>(null);
   const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);

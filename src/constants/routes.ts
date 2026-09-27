@@ -8,7 +8,7 @@ export const ROUTES = {
   projectDetail: "/projects/:projectId",
   booths: "/booths",
   guestbook: "/guestbook",
-  behind: "/behind",
+  neverEndingStory: "/never-ending-story",
 } as const;
 
 export const NAVIGATION_ITEMS = [
@@ -18,5 +18,5 @@ export const NAVIGATION_ITEMS = [
   { label: "프로젝트", path: ROUTES.projects },
   { label: "부스배치도", path: ROUTES.booths },
   { label: "방명록", path: ROUTES.guestbook },
-  { label: "비하인드", path: ROUTES.behind },
+  { label: "끝나지 않은 이야기", path: ROUTES.neverEndingStory },
 ] as const;

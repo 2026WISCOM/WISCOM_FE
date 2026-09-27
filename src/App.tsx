@@ -6,7 +6,7 @@ import ExhibitionPage from "./pages/ExhibitionPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import BoothPage from "./pages/BoothPage";
-import BehindPage from "./pages/BehindPage";
+import NeverEndingStoryPage from "./pages/NeverEndingStoryPage";
 import DirectionsPage from "./pages/DirectionsPage";
 import GuestbookPage from "./pages/GuestbookPage";
 import SiteLayout from "./layouts/SiteLayout";
@@ -25,7 +25,7 @@ export default function App() {
         <Route path={ROUTES.projectDetail} element={<ProjectDetailPage />} />
         <Route path={ROUTES.booths} element={<BoothPage />} />
         <Route path={ROUTES.guestbook} element={<GuestbookPage />} />
-        <Route path={ROUTES.behind} element={<BehindPage />} />
+        <Route path={ROUTES.neverEndingStory} element={<NeverEndingStoryPage />} />
       </Route>
     </Routes>
   );

@@ -12,20 +12,21 @@ export default function SiteLayout() {
   const isHomePage = pathname === ROUTES.home;
   const isExhibitionPage = pathname === ROUTES.exhibition;
   const isDirectionsPage = pathname === ROUTES.directions;
+  const isNeverEndingStoryPage = pathname === ROUTES.neverEndingStory;
   const isProjectDetailPage = useMatch(ROUTES.projectDetail) !== null;
-  const hasDarkBackground = isHomePage || isExhibitionPage || pathname === ROUTES.participants;
+  const hasDarkBackground = isHomePage || isExhibitionPage || isNeverEndingStoryPage || pathname === ROUTES.participants;
 
   return (
     <div className="site-shell">
       <div className="app-frame">
         <Navbar variant={hasDarkBackground ? "white" : "navy"} />
         <div ref={contentRef} key={key} className={cn("app-content", isExhibitionPage && "bg-[#0e2540]", isProjectDetailPage && "bg-[#fbfbfb]")}>
-          <main className={isExhibitionPage || isDirectionsPage || isProjectDetailPage ? "grid" : "grid min-h-full"}>
+          <main className={isExhibitionPage || isDirectionsPage || isProjectDetailPage || isNeverEndingStoryPage ? "grid" : "grid min-h-full"}>
             <Outlet />
           </main>
           {!isHomePage && <Footer />}
         </div>
-        {pathname === ROUTES.projects && (
+        {(pathname === ROUTES.projects || isNeverEndingStoryPage) && (
           <IconButton
             aria-label="맨 위로 이동"
             onClick={() => contentRef.current?.scrollTo({

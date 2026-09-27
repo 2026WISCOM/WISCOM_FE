@@ -4,7 +4,7 @@ import { MOCK_PROJECTS } from "./projects/data/mockProjects";
 
 export default function ProjectsPage() {
   return (
-    <section className="min-h-full bg-[#fbfbfb] px-5 pt-[calc(max(1rem,env(safe-area-inset-top))+4rem+21px)] pb-16 text-[#172a3a]">
+    <section className="min-h-full bg-page px-5 pt-navbar [--page-gap:21px] pb-16 text-ink">
       <h1 className="sr-only">프로젝트 목록</h1>
       <ul className="flex flex-col gap-8">
         {MOCK_PROJECTS.map((project) => (
@@ -24,7 +24,7 @@ export default function ProjectsPage() {
               <div className="min-w-0 break-keep">
                 <h2 className="body-medium font-bold">{project.title}</h2>
                 <p className="body-small mt-[3px]">{project.description}</p>
-                <p className="body-xsmall mt-px text-[#81909b]">{project.members.map(({ name }) => name).join(" ")}</p>
+                <p className="body-xsmall mt-px text-muted">{project.members.map(({ name }) => name).join(" ")}</p>
               </div>
             </Link>
           </li>

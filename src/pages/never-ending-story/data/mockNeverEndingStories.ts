@@ -1,6 +1,7 @@
 import storyPlaceholder from "../../../assets/project-placeholder.svg";
+import type { NeverEndingStory } from "../../../types/neverEndingStory";
 
-export const MOCK_NEVER_ENDING_STORIES = [
+export const MOCK_NEVER_ENDING_STORIES: NeverEndingStory[] = [
   { name: "김미주", introduction: "코드뒤의이야기", width: 4, height: 5 },
   { name: "김은서", introduction: "우리의첫도전", width: 4, height: 3 },
   { name: "이채은", introduction: "함께여서가능했어", width: 1, height: 1 },
@@ -19,5 +20,3 @@ export const MOCK_NEVER_ENDING_STORIES = [
   image: storyPlaceholder,
   content: "졸업 전시를 준비하며 남긴 이야기입니다. 함께 고민하고 도전했던 순간들을 이곳에 담을 예정입니다.",
 }));
-
-export type NeverEndingStory = (typeof MOCK_NEVER_ENDING_STORIES)[number];

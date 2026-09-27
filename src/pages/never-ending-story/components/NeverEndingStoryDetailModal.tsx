@@ -1,6 +1,6 @@
 import { useId } from "react";
 import Modal from "../../../components/ui/Modal";
-import type { NeverEndingStory } from "../data/mockNeverEndingStories";
+import type { NeverEndingStory } from "../../../types/neverEndingStory";
 
 type NeverEndingStoryDetailModalProps = {
   id: string;

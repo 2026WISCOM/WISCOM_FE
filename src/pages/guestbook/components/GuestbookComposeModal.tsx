@@ -1,19 +1,17 @@
 import { useId, useRef, useState, type FormEvent } from "react";
 import Button from "../../../components/ui/Button";
 import Modal from "../../../components/ui/Modal";
+import type { ProjectTeam } from "../../../types/project";
+import { AUTHOR_MAX_LENGTH, EVERYONE_RECIPIENT, MESSAGE_MAX_LENGTH } from "../constants";
+import type { GuestbookDraft } from "../types";
+import { getRecipientProjectId } from "../utils";
 import GuestbookTeamSelect from "./GuestbookTeamSelect";
-
-export type GuestbookDraft = {
-  projectId: string;
-  author: string;
-  content: string;
-};
 
 type GuestbookComposeModalProps = {
   id: string;
   isOpen: boolean;
   onClose: () => void;
-  projects: readonly { id: string; teamName: string }[];
+  projects: readonly ProjectTeam[];
   initialProjectId: string;
   onSubmit: (entry: GuestbookDraft) => void;
 };
@@ -32,19 +30,22 @@ export default function GuestbookComposeModal({
   const [recipientError, setRecipientError] = useState(false);
   const [message, setMessage] = useState("");
   const teamButtonRef = useRef<HTMLButtonElement>(null);
+  const authorRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    if (recipient !== "all" && !projects.some(({ id }) => id === recipient)) {
+    if (recipient !== EVERYONE_RECIPIENT.id && !projects.some(({ id }) => id === recipient)) {
       setRecipientError(true);
       teamButtonRef.current?.focus();
       return;
     }
-    const author = form.elements.namedItem("author") as HTMLInputElement;
-    const content = form.elements.namedItem("content") as HTMLTextAreaElement;
+    const author = authorRef.current;
+    const content = messageRef.current;
+    if (!author || !content) return;
     const entry = {
-      projectId: recipient === "all" ? "" : recipient,
+      projectId: getRecipientProjectId(recipient),
       author: author.value.trim(),
       content: content.value.trim(),
     };
@@ -62,7 +63,7 @@ export default function GuestbookComposeModal({
       onClose={onClose}
     >
       <form
-        className="w-full px-5 text-[#f0f0f0] [--glass-background:rgba(255,255,255,0.25)] [--glass-fallback-background:rgba(255,255,255,0.25)] [--glass-solid-background:#4a5c70]"
+        className="w-full px-5 text-on-dark glass-light"
         onSubmit={handleSubmit}
         onInput={(event) => {
           const field = event.target;
@@ -80,7 +81,7 @@ export default function GuestbookComposeModal({
             <label id={`${fieldId}-team-label`} htmlFor={`${fieldId}-team`} className="body-medium block pl-[10px] font-bold">To.</label>
             <GuestbookTeamSelect
               id={`${fieldId}-team`}
-              projects={[{ id: "all", teamName: "모두에게" }, ...projects]}
+              projects={[EVERYONE_RECIPIENT, ...projects]}
               value={recipient}
               onChange={(value) => {
                 setRecipient(value);
@@ -95,37 +96,39 @@ export default function GuestbookComposeModal({
             <label htmlFor={`${fieldId}-content`} className="body-medium block pl-[10px] font-bold">방명록</label>
             <div className="glass-effect relative h-[170px] rounded-[20px]">
               <textarea
+                ref={messageRef}
                 id={`${fieldId}-content`}
                 name="content"
                 value={message}
                 onChange={(event) => setMessage(event.currentTarget.value)}
                 required
-                maxLength={500}
+                maxLength={MESSAGE_MAX_LENGTH}
                 aria-describedby={`${fieldId}-count`}
                 placeholder="전하고 싶은 말을 자유롭게 적어주세요"
-                className="body-small block h-full w-full resize-none rounded-[20px] bg-transparent px-[15px] pt-2 pb-[34px] placeholder:text-[#b7b7b7]"
+                className="body-small block h-full w-full resize-none rounded-[20px] bg-transparent px-[15px] pt-2 pb-[34px] placeholder:text-placeholder"
               />
-              <p id={`${fieldId}-count`} className="body-small pointer-events-none absolute right-[15px] bottom-2 text-[#b7b7b7]">
-                {message.length}/500
+              <p id={`${fieldId}-count`} className="body-small pointer-events-none absolute right-[15px] bottom-2 text-placeholder">
+                {message.length}/{MESSAGE_MAX_LENGTH}
               </p>
             </div>
           </div>
           <div>
             <label htmlFor={`${fieldId}-author`} className="body-medium block pl-[10px] font-bold">From.</label>
             <input
+              ref={authorRef}
               id={`${fieldId}-author`}
               name="author"
               type="text"
               autoComplete="name"
               required
-              maxLength={30}
-              aria-label="From. 작성자 이름 (최대 30자)"
+              maxLength={AUTHOR_MAX_LENGTH}
+              aria-label={`From. 작성자 이름 (최대 ${AUTHOR_MAX_LENGTH}자)`}
               placeholder="작성자 이름을 입력해주세요"
-              className="glass-effect body-small h-10 w-full rounded-full px-[15px] placeholder:text-[#b7b7b7]"
+              className="glass-effect body-small h-10 w-full rounded-full px-[15px] placeholder:text-placeholder"
             />
           </div>
         </div>
-        <Button type="submit" className="glass-effect body-medium mt-[30px] h-[58px] w-full rounded-full text-[#f0f0f0]">
+        <Button type="submit" className="glass-effect body-medium mt-[30px] h-[58px] w-full rounded-full text-on-dark">
           방명록 남기기
         </Button>
       </form>

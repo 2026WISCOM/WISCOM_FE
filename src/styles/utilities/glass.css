@@ -21,3 +21,9 @@
   --glass-solid-background: #263343;
   --glass-border: rgb(255 255 255 / 24%);
 }
+
+@utility glass-light {
+  --glass-background: rgb(255 255 255 / 25%);
+  --glass-fallback-background: rgb(255 255 255 / 25%);
+  --glass-solid-background: #4a5c70;
+}

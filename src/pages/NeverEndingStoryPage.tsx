@@ -1,26 +1,30 @@
-import { useId, useState } from "react";
+import { useId } from "react";
 import Button from "../components/ui/Button";
+import { useDetailModal } from "../hooks/useDetailModal";
+import type { NeverEndingStory } from "../types/neverEndingStory";
 import NeverEndingStoryDetailModal from "./never-ending-story/components/NeverEndingStoryDetailModal";
 import { MOCK_NEVER_ENDING_STORIES } from "./never-ending-story/data/mockNeverEndingStories";
-import type { NeverEndingStory } from "./never-ending-story/data/mockNeverEndingStories";
+
+const STORY_COLUMNS = [0, 1].map((column) =>
+  MOCK_NEVER_ENDING_STORIES.filter((_, index) => index % 2 === column),
+);
 
 export default function NeverEndingStoryPage() {
   const detailId = useId();
-  const [selectedStory, setSelectedStory] = useState<NeverEndingStory | null>(null);
-  const [isDetailOpen, setIsDetailOpen] = useState(false);
-
-  function openStory(story: NeverEndingStory) {
-    setSelectedStory(story);
-    setIsDetailOpen(true);
-  }
+  const {
+    selectedItem: selectedStory,
+    isOpen: isDetailOpen,
+    open: openStory,
+    close: closeStory,
+  } = useDetailModal<NeverEndingStory>();
 
   return (
-    <section className="dark-gradient-background px-5 pt-[calc(max(1rem,env(safe-area-inset-top))+4rem+43px)] pb-[100px] text-white">
+    <section className="dark-gradient-background px-5 pt-navbar [--page-gap:43px] pb-[100px] text-white">
       <h1 className="sr-only">끝나지 않은 이야기</h1>
       <div className="grid grid-cols-2 items-start gap-[13px]">
-        {[0, 1].map((column) => (
+        {STORY_COLUMNS.map((stories, column) => (
           <ul key={column} className="flex min-w-0 flex-col gap-[13px]">
-            {MOCK_NEVER_ENDING_STORIES.filter((_, index) => index % 2 === column).map((story) => (
+            {stories.map((story) => (
               <li key={story.id} className="flex">
                 <Button
                   onClick={() => openStory(story)}
@@ -48,7 +52,7 @@ export default function NeverEndingStoryPage() {
         id={detailId}
         story={selectedStory}
         isOpen={isDetailOpen}
-        onClose={() => setIsDetailOpen(false)}
+        onClose={closeStory}
       />
     </section>
   );

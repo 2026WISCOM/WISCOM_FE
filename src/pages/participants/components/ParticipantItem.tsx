@@ -16,7 +16,7 @@ export default function ParticipantItem({ participant, onSelect, dialogId }: Par
         aria-haspopup="dialog"
         aria-controls={dialogId}
         aria-label={`${participant.name} 상세 정보`}
-        className="w-full flex-col gap-[9px] rounded-lg text-center text-[#f0f0f0]"
+        className="w-full flex-col gap-[9px] rounded-lg text-center text-on-dark"
       >
         <img src={bubbleImage} alt="" width={34} height={34} className="size-[34px] object-contain" />
         <span className="body-medium">{participant.name}</span>

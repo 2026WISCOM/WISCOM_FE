@@ -1,4 +1,5 @@
 import { useId, useState } from "react";
+import { useDetailModal } from "../hooks/useDetailModal";
 import type { Participant } from "../types/participant";
 import ParticipantDetailModal from "./participants/components/ParticipantDetailModal";
 import ParticipantFilters from "./participants/components/ParticipantFilters";
@@ -11,13 +12,12 @@ import { filterParticipants } from "./participants/utils/filterParticipants";
 export default function ParticipantsPage() {
 	const resultsId = useId();
 	const detailId = useId();
-	const [selectedParticipant, setSelectedParticipant] = useState<Participant | null>(null);
-	const [isDetailOpen, setIsDetailOpen] = useState(false);
-
-	function openParticipant(participant: Participant) {
-		setSelectedParticipant(participant);
-		setIsDetailOpen(true);
-	}
+	const {
+		selectedItem: selectedParticipant,
+		isOpen: isDetailOpen,
+		open: openParticipant,
+		close: closeParticipant,
+	} = useDetailModal<Participant>();
 	const [selectedFilter, setSelectedFilter] = useState<ParticipantFilter>(
 		ALL_PARTICIPANTS_FILTER,
 	);
@@ -52,7 +52,7 @@ export default function ParticipantsPage() {
 				id={detailId}
 				participant={selectedParticipant}
 				isOpen={isDetailOpen}
-				onClose={() => setIsDetailOpen(false)}
+				onClose={closeParticipant}
 			/>
 		</section>
 	);

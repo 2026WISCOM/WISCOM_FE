@@ -1,3 +1,6 @@
+import ContentSection from "../components/ui/ContentSection";
+import GlassLink from "../components/ui/GlassLink";
+
 const MAP_QUERY = encodeURIComponent(
 	"서울시 도봉구 마들로13길 84 지하 1층 (서울창업허브 창동)",
 );
@@ -18,7 +21,7 @@ const PARKING_NOTICES = [
 
 export default function DirectionsPage() {
 	return (
-		<section className="bg-[#fbfbfb] px-5 pt-[calc(max(1rem,env(safe-area-inset-top))+4rem+24px)] pb-16 text-[#172a3a]">
+		<section className="bg-page px-5 pt-navbar pb-16 text-ink">
 			<header className="flex flex-col gap-1">
 				<h1 className="heading-large">서울창업허브 창동</h1>
 				<p className="body-medium break-keep">
@@ -35,7 +38,7 @@ export default function DirectionsPage() {
 				>
 					장소 이미지
 				</div>
-				<div className="flex h-11 items-center justify-center bg-[#ededed]">
+				<div className="flex h-11 items-center justify-center bg-surface-muted">
 					<div
 						role="img"
 						aria-label="서울창업허브 창동 로고 준비 중"
@@ -48,25 +51,26 @@ export default function DirectionsPage() {
 
 			<div
 				aria-label="지도 서비스"
-				className="mt-[23px] grid grid-cols-2 gap-[11px] [--glass-background:#264565] [--glass-fallback-background:#264565] [--glass-solid-background:#264565]"
+				className="mt-[23px] grid grid-cols-2 gap-[11px] [--glass-background:var(--color-navy)] [--glass-fallback-background:var(--color-navy)] [--glass-solid-background:var(--color-navy)]"
 			>
 				{MAP_SERVICES.map(({ name, href }) => (
-					<a
+					<GlassLink
 						key={name}
-						href={href}
+						to={href}
 						target="_blank"
 						rel="noopener noreferrer"
+						focusColor="navy"
 						aria-label={`${name}에서 서울창업허브 창동 검색 (새 탭)`}
-						className="glass-effect body-large flex h-[58px] items-center justify-center rounded-full px-3 text-center text-white transition-[filter] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy active:brightness-95 motion-reduce:transition-none"
+						className="body-large text-white"
 					>
 						{name}
-					</a>
+					</GlassLink>
 				))}
 			</div>
 
 			<ul
 				aria-label="대중교통 안내"
-				className="mt-[19px] flex flex-col gap-3 text-[#264565]"
+				className="mt-[19px] flex flex-col gap-3 text-navy"
 			>
 				{TRANSIT_TYPES.map((type) => (
 					<li key={type} className="flex items-start gap-3">
@@ -80,19 +84,17 @@ export default function DirectionsPage() {
 				))}
 			</ul>
 
-			<section
-				aria-labelledby="parking-heading"
-				className="mt-[45px] flex flex-col gap-3.5"
+			<ContentSection
+				headingId="parking-heading"
+				title="주차 안내"
+				className="mt-[45px]"
 			>
-				<h2 id="parking-heading" className="heading-small">
-					주차 안내
-				</h2>
 				<ul className="body-small flex list-disc flex-col gap-1.5 pl-5 break-keep">
 					{PARKING_NOTICES.map((notice) => (
 						<li key={notice}>{notice}</li>
 					))}
 				</ul>
-			</section>
+			</ContentSection>
 		</section>
 	);
 }

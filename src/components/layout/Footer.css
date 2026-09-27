@@ -1,5 +1,5 @@
 .site-footer {
-  background-color: #0e2540;
+  background-color: var(--color-deep-navy);
   background-image: linear-gradient(
     108deg,
     rgba(255, 255, 255, 0.26) 0%,

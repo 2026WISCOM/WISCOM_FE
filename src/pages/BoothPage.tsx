@@ -17,9 +17,9 @@ const EXHIBITION_SPACES = [
 
 export default function BoothPage() {
   return (
-    <div className="bg-[#fbfbfb] pt-[calc(max(1rem,env(safe-area-inset-top))+4rem+43px)] pb-32">
+    <div className="bg-page pt-navbar [--page-gap:43px] pb-32">
       <h1 className="sr-only">부스배치도</h1>
-      <ul aria-label="배치도 범례" className="body-xsmall flex items-center justify-between px-9 text-[#81909b]">
+      <ul aria-label="배치도 범례" className="body-xsmall flex items-center justify-between px-9 text-muted">
         {LEGEND_ITEMS.map(({ label, color }) => (
           <li key={color} className="flex min-w-0 items-center gap-2">
             <span
@@ -51,12 +51,12 @@ export default function BoothPage() {
                 <section key={studioNumber} aria-labelledby={`studio-${studioNumber}-heading`} className="flex flex-col gap-3">
                   <h3
                     id={`studio-${studioNumber}-heading`}
-                    className="body-small self-start rounded-full px-[19px] py-0.5 text-[#f0f0f0]"
+                    className="body-small self-start rounded-full px-[19px] py-0.5 text-on-dark"
                     style={{ backgroundColor: BOOTH_COLORS[color].color }}
                   >
                     스튜디오 {studioNumber}
                   </h3>
-                  <ul className="body-small flex list-disc flex-col gap-3 pl-5 text-[#172a3a]">
+                  <ul className="body-small flex list-disc flex-col gap-3 pl-5 text-ink">
                     {MOCK_PROJECTS.filter((project) => project.studioNumber === studioNumber).map((project) => (
                       <li key={project.id}>
                         <Link
@@ -65,7 +65,7 @@ export default function BoothPage() {
                         >
                           <span className="min-w-0 break-keep">
                             <strong className="font-bold">{project.title}</strong>{" "}
-                            <span className="text-[#81909b]">{project.members.map(({ name }) => name).join(" ")}</span>
+                            <span className="text-muted">{project.members.map(({ name }) => name).join(" ")}</span>
                           </span>
                           <svg
                             width="16"
@@ -77,7 +77,7 @@ export default function BoothPage() {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             aria-hidden="true"
-                            className="size-4 shrink-0 text-[#81909b]"
+                            className="size-4 shrink-0 text-muted"
                           >
                             <path d="m9 5 7 7-7 7" />
                           </svg>

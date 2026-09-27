@@ -19,6 +19,9 @@ const MOCK_PARTICIPANT_NAMES = [
 export const MOCK_PARTICIPANTS: Participant[] = MOCK_PARTICIPANT_NAMES.map(
   (name, index) => {
     const project = MOCK_PROJECTS[Math.floor(index / MOCK_PARTICIPANTS_PER_PROJECT)];
+    if (!project) {
+      throw new Error(`Missing mock project for participant ${index + 1} (${name}).`);
+    }
 
     return {
       id: `participant-${index + 1}`,

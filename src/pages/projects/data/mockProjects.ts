@@ -1,6 +1,7 @@
 import projectPlaceholder from "../../../assets/project-placeholder.svg";
+import type { Project, ProjectMember } from "../../../types/project";
 
-const MOCK_MEMBERS = [
+const MOCK_MEMBERS: ProjectMember[] = [
   { name: "김미주", roles: ["프론트엔드 개발"] },
   { name: "김은서", roles: ["백엔드 개발"] },
   { name: "이채은", roles: ["기획", "디자인"] },
@@ -10,7 +11,7 @@ const MOCK_MEMBERS = [
 
 const MOCK_STUDIO_NUMBERS = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 10];
 
-export const MOCK_PROJECTS = MOCK_STUDIO_NUMBERS.map((studioNumber, index) => ({
+export const MOCK_PROJECTS: Project[] = MOCK_STUDIO_NUMBERS.map((studioNumber, index) => ({
   id: `project-${index + 1}`,
   title: `프로젝트 ${String(index + 1).padStart(2, "0")}`,
   description: "프로젝트를 소개하는 간단한 설명입니다.",

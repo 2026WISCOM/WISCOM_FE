@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type RefObject } from "react";
+import type { ProjectTeam } from "../../../types/project";
 import { cn } from "../../../utils/cn";
 
 type GuestbookTeamSelectProps = {
   id: string;
-  projects: readonly { id: string; teamName: string }[];
+  projects: readonly ProjectTeam[];
   value: string;
   onChange: (value: string) => void;
   buttonRef: RefObject<HTMLButtonElement | null>;
@@ -21,25 +22,26 @@ export default function GuestbookTeamSelect({ id, projects, value, onChange, but
 
   useEffect(() => {
     if (!isOpen) return;
-    function closeOutside(event: PointerEvent) {
+    function handleOutsidePointerDown(event: PointerEvent) {
       if (event.target instanceof Node && !containerRef.current?.contains(event.target)) setIsOpen(false);
     }
-    document.addEventListener("pointerdown", closeOutside);
-    return () => document.removeEventListener("pointerdown", closeOutside);
+    document.addEventListener("pointerdown", handleOutsidePointerDown);
+    return () => document.removeEventListener("pointerdown", handleOutsidePointerDown);
   }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) listRef.current?.children[activeIndex]?.scrollIntoView({ block: "nearest" });
   }, [isOpen, activeIndex]);
 
-  function openList() {
+  function handleOpenList() {
     setActiveIndex(Math.max(selectedIndex, 0));
     setIsOpen(true);
   }
 
-  function selectTeam(index: number) {
-    if (!projects[index]) return;
-    onChange(projects[index].id);
+  function handleSelectTeam(index: number) {
+    const team = projects[index];
+    if (!team) return;
+    onChange(team.id);
     setIsOpen(false);
     buttonRef.current?.focus();
   }
@@ -52,11 +54,12 @@ export default function GuestbookTeamSelect({ id, projects, value, onChange, but
       setIsOpen(true);
       if (event.key === "Home") setActiveIndex(0);
       else if (event.key === "End") setActiveIndex(lastIndex);
-      else if (!isOpen) setActiveIndex(selectedIndex >= 0 ? selectedIndex : event.key === "ArrowUp" ? lastIndex : 0);
+      else if (!isOpen && selectedIndex >= 0) setActiveIndex(selectedIndex);
+      else if (!isOpen) setActiveIndex(event.key === "ArrowUp" ? lastIndex : 0);
       else setActiveIndex((index) => Math.max(0, Math.min(lastIndex, index + (event.key === "ArrowDown" ? 1 : -1))));
     } else if (isOpen && (event.key === "Enter" || event.key === " ")) {
       event.preventDefault();
-      selectTeam(activeIndex);
+      handleSelectTeam(activeIndex);
     } else if (isOpen && event.key === "Escape") {
       event.preventDefault();
       event.stopPropagation();
@@ -85,11 +88,11 @@ export default function GuestbookTeamSelect({ id, projects, value, onChange, but
         aria-required="true"
         aria-invalid={error || undefined}
         aria-describedby={error ? `${id}-error` : undefined}
-        onClick={() => isOpen ? setIsOpen(false) : openList()}
+        onClick={() => isOpen ? setIsOpen(false) : handleOpenList()}
         onKeyDown={handleKeyDown}
         className={cn(
           "glass-effect body-small relative h-10 w-full cursor-pointer rounded-full pr-[46px] pl-[15px] text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70",
-          selectedTeam ? "text-[#f0f0f0]" : "text-[#b7b7b7]",
+          selectedTeam ? "text-on-dark" : "text-placeholder",
         )}
       >
         <span className="block truncate">{selectedTeam?.teamName ?? "응원할 팀을 선택해주세요"}</span>
@@ -97,7 +100,7 @@ export default function GuestbookTeamSelect({ id, projects, value, onChange, but
           width="16" height="16" viewBox="0 0 16 16" fill="none"
           stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
           aria-hidden="true"
-          className={cn("pointer-events-none absolute top-1/2 right-[15px] -translate-y-1/2 text-[#f0f0f0] transition-transform duration-300 motion-reduce:transition-none", isOpen && "rotate-180")}
+          className={cn("pointer-events-none absolute top-1/2 right-[15px] -translate-y-1/2 text-on-dark transition-transform duration-300 motion-reduce:transition-none", isOpen && "rotate-180")}
         >
           <path d="m4 6 4 4 4-4" />
         </svg>
@@ -118,9 +121,9 @@ export default function GuestbookTeamSelect({ id, projects, value, onChange, but
                 role="option"
                 aria-selected={project.id === value}
                 onMouseDown={(event) => event.preventDefault()}
-                onClick={() => selectTeam(index)}
+                onClick={() => handleSelectTeam(index)}
                 className={cn(
-                  "body-small flex h-10 cursor-pointer items-center gap-3 pr-[15px] pl-[26px] text-[#f0f0f0] hover:bg-white/10",
+                  "body-small flex h-10 cursor-pointer items-center gap-3 pr-[15px] pl-[26px] text-on-dark hover:bg-white/10",
                   activeIndex === index && "bg-white/10",
                 )}
               >

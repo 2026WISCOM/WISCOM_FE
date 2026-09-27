@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { createSearchParams, generatePath, Link, useParams } from "react-router-dom";
+import ContentSection from "../components/ui/ContentSection";
 import GlassLink from "../components/ui/GlassLink";
 import { ROUTES } from "../constants/routes";
 import { MOCK_PROJECTS } from "./projects/data/mockProjects";
@@ -10,7 +11,7 @@ export default function ProjectDetailPage() {
 
   if (!project) {
     return (
-      <section className="bg-[#fbfbfb] px-5 pt-[calc(max(1rem,env(safe-area-inset-top))+4rem+43px)] pb-32 text-[#172a3a]">
+      <section className="bg-page px-5 pt-navbar [--page-gap:43px] pb-32 text-ink">
         <h1 className="heading-large">프로젝트를 찾을 수 없습니다</h1>
         <Link to={ROUTES.projects} className="body-medium mt-4 inline-block rounded-sm underline focus-visible:outline-2 focus-visible:outline-offset-4">
           프로젝트 목록으로 돌아가기
@@ -24,7 +25,7 @@ export default function ProjectDetailPage() {
   );
 
   return (
-    <article className="bg-[#fbfbfb] px-5 pt-[calc(max(1rem,env(safe-area-inset-top))+4rem+43px)] pb-32 text-[#172a3a] break-keep">
+    <article className="bg-page px-5 pt-navbar [--page-gap:43px] pb-32 text-ink break-keep">
       <img
         src={project.image}
         alt={`${project.title} 미리보기`}
@@ -34,27 +35,24 @@ export default function ProjectDetailPage() {
       <header className="mt-[15px] flex flex-col items-center text-center">
         <h1 className="heading-large">{project.title}</h1>
         <p className="body-medium">{project.description}</p>
-        <p className="body-small mt-[7px] rounded-full border border-[#264565] px-[18px] py-0.5 text-[#264565]">
+        <p className="body-small mt-[7px] rounded-full border border-navy px-[18px] py-0.5 text-navy">
           스튜디오 {project.studioNumber}
         </p>
       </header>
 
-      <section aria-labelledby="project-introduction" className="mt-[52px] flex flex-col gap-3.5">
-        <h2 id="project-introduction" className="heading-small">프로젝트 소개</h2>
+      <ContentSection headingId="project-introduction" title="프로젝트 소개" className="mt-[52px]">
         <p className="body-small whitespace-pre-line">{project.introduction}</p>
-      </section>
+      </ContentSection>
 
-      <section aria-labelledby="project-demo" className="mt-9 flex flex-col gap-3.5">
-        <h2 id="project-demo" className="heading-small">현장 시연 기능</h2>
+      <ContentSection headingId="project-demo" title="현장 시연 기능" className="mt-9">
         <ul className="body-small flex list-disc flex-col gap-1.5 pl-5">
           {project.demoFeatures.map((feature) => (
             <li key={feature}>{feature}</li>
           ))}
         </ul>
-      </section>
+      </ContentSection>
 
-      <section aria-labelledby="project-team" className="mt-9 flex flex-col gap-3.5">
-        <h2 id="project-team" className="heading-small">만든 사람들</h2>
+      <ContentSection headingId="project-team" title="만든 사람들" className="mt-9">
         <div className="flex items-center gap-3">
           <img
             src={project.teamImage}
@@ -75,11 +73,11 @@ export default function ProjectDetailPage() {
             </ul>
           </div>
         </div>
-      </section>
+      </ContentSection>
 
       <nav
         aria-label="프로젝트 참여 안내"
-        className="mt-16 flex flex-col gap-[18px] [--glass-background:#172a3a] [--glass-fallback-background:#172a3a] [--glass-solid-background:#172a3a]"
+        className="mt-16 flex flex-col gap-[18px] [--glass-background:var(--color-ink)] [--glass-fallback-background:var(--color-ink)] [--glass-solid-background:var(--color-ink)]"
       >
         <GlassLink
           to={{

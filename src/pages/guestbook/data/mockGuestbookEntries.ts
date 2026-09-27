@@ -1,10 +1,11 @@
 import { MOCK_PROJECTS } from "../../projects/data/mockProjects";
+import type { GuestbookEntry } from "../types";
 
 export const GUESTBOOK_TEAMS = MOCK_PROJECTS
   .map(({ id, teamName }) => ({ id, teamName }))
   .toSorted((first, second) => first.teamName.localeCompare(second.teamName, "ko", { numeric: true }));
 
-export const MOCK_GUESTBOOK_ENTRIES = MOCK_PROJECTS.flatMap((project, index) => [
+export const MOCK_GUESTBOOK_ENTRIES: GuestbookEntry[] = MOCK_PROJECTS.flatMap((project, index) => [
   {
     id: `guestbook-${index + 1}-1`,
     projectId: project.id,

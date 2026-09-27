@@ -11,6 +11,14 @@
   --font-serif: var(--font-sans);
   --font-mono: var(--font-sans);
   --color-navy: #264565;
+  --color-pink: #ef79a8;
+  --color-ink: #172a3a;
+  --color-muted: #81909b;
+  --color-on-dark: #f0f0f0;
+  --color-placeholder: #b7b7b7;
+  --color-page: #fbfbfb;
+  --color-deep-navy: #0e2540;
+  --color-surface-muted: #ededed;
   --color-canvas: #f1f2f4;
   --shadow-glass:
     inset 0 1px 0 rgb(255 255 255 / 35%),
@@ -21,6 +29,17 @@
   --breakpoint-lg: 1024px;  /* 태블릿 (가로) / 소형 노트북 */
   --breakpoint-xl: 1280px;  /* 노트북 / 데스크톱 */
   --breakpoint-2xl: 1536px; /* 대형 데스크톱 */
+}
+
+:root {
+  --navbar-edge: 1rem;
+  --navbar-top: max(1rem, env(safe-area-inset-top));
+  --navbar-height: 4rem;
+  --navbar-padding: 0.5rem;
+}
+
+@utility pt-navbar {
+  padding-top: calc(var(--navbar-top) + var(--navbar-height) + var(--page-gap, 24px));
 }
 
 /* 기본 리셋 및 반응형 베이스 */

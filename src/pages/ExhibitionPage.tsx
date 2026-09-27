@@ -1,3 +1,5 @@
+import ContentSection from "../components/ui/ContentSection";
+
 const EXHIBITION_DAYS = ["DAY 1", "DAY 2"] as const;
 
 const COMMITTEE = [
@@ -10,7 +12,7 @@ const COMMITTEE = [
 
 export default function ExhibitionPage() {
   return (
-    <section className="flex flex-col gap-[30px] bg-[#0e2540] px-5 pt-[calc(max(1rem,env(safe-area-inset-top))+4rem+24px)] pb-16 text-[#f0f0f0]">
+    <section className="flex flex-col gap-[30px] bg-deep-navy px-5 pt-navbar pb-16 text-on-dark">
       <h1 className="sr-only">전시 소개</h1>
 
       {/* 실제 전시 포스터가 준비되면 이미지로 교체합니다. */}
@@ -25,7 +27,7 @@ export default function ExhibitionPage() {
       <ul aria-label="전시 일정" className="flex flex-col gap-1.5">
         {EXHIBITION_DAYS.map((day) => (
           <li key={day} className="flex items-center gap-3.5">
-            <span className="body-xsmall shrink-0 rounded-full bg-[#ef79a8] px-4 py-0.5 text-[#0c1938]">
+            <span className="body-xsmall shrink-0 rounded-full bg-pink px-4 py-0.5 text-[#0c1938]">
               {day}
             </span>
             <p className="body-medium">날짜 및 시간 추후 안내</p>
@@ -37,8 +39,7 @@ export default function ExhibitionPage() {
         전시회 컨셉 소개 문구가 들어갈 자리입니다.
       </p>
 
-      <section aria-labelledby="committee-heading" className="flex flex-col gap-3.5">
-        <h2 id="committee-heading" className="heading-small">졸업전시준비위원회</h2>
+      <ContentSection headingId="committee-heading" title="졸업전시준비위원회">
         <ul className="body-small flex flex-col gap-1.5 break-keep">
           {COMMITTEE.map(({ role, names }) => (
             <li key={role}>
@@ -46,7 +47,7 @@ export default function ExhibitionPage() {
             </li>
           ))}
         </ul>
-      </section>
+      </ContentSection>
     </section>
   );
 }

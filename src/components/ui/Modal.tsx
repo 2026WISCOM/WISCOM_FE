@@ -1,7 +1,6 @@
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useModalDialog } from "../../hooks/useModalDialog";
-import { cn } from "../../utils/cn";
 import CloseButton from "./CloseButton";
 import "./Modal.css";
 
@@ -10,12 +9,15 @@ type ModalProps = {
   isOpen: boolean;
   labelledBy: string;
   onClose: () => void;
-  contentClassName?: string;
   children: ReactNode;
 };
 
-export default function Modal({ id, isOpen, labelledBy, onClose, contentClassName, children }: ModalProps) {
+export default function Modal({ id, isOpen, labelledBy, onClose, children }: ModalProps) {
   const dialogRef = useModalDialog(isOpen);
+
+  function handleBackdropClick(event: MouseEvent<HTMLElement>) {
+    if (event.target === event.currentTarget) onClose();
+  }
 
   return createPortal(
     <dialog
@@ -27,26 +29,20 @@ export default function Modal({ id, isOpen, labelledBy, onClose, contentClassNam
         event.preventDefault();
         onClose();
       }}
-      onClick={(event) => {
-        if (event.target === event.currentTarget) onClose();
-      }}
+      onClick={handleBackdropClick}
     >
       <CloseButton
         aria-label="상세 정보 닫기"
         onClick={onClose}
-        className="modal-close absolute top-4 right-4 z-10 text-[#f0f0f0]"
+        className="modal-close absolute top-4 right-4 z-10 text-on-dark"
       />
       <div
         className="flex h-full flex-col overflow-y-auto overscroll-contain"
-        onClick={(event) => {
-          if (event.target === event.currentTarget) onClose();
-        }}
+        onClick={handleBackdropClick}
       >
         <div
-          className={cn("modal-content w-full shrink-0", contentClassName ?? "my-auto py-20")}
-          onClick={(event) => {
-            if (event.target === event.currentTarget) onClose();
-          }}
+          className="modal-content my-auto w-full shrink-0 py-20"
+          onClick={handleBackdropClick}
         >
           {children}
         </div>

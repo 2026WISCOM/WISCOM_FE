@@ -4,15 +4,15 @@ export const FLOOR_PLAN_BOXES = [
     left: "4.4818%", top: "3.2316%", width: "21.2885%", height: "15.9785%",
   },
   {
-    text: "스튜디오\n6", color: "navy",
+    text: "스튜디오\n6", color: "navy", studioNumber: 6,
     left: "28.0112%", top: "3.2316%", width: "18.2073%", height: "7.8995%",
   },
   {
-    text: "스튜디오\n5", color: "navy",
+    text: "스튜디오\n5", color: "navy", studioNumber: 5,
     left: "48.7395%", top: "3.2316%", width: "18.2073%", height: "7.8995%",
   },
   {
-    text: "스튜디오 4", color: "navy",
+    text: "스튜디오 4", color: "navy", studioNumber: 4,
     left: "69.6078%", top: "3.3214%", width: "25.2101%", height: "24.0575%",
   },
   {
@@ -24,7 +24,7 @@ export const FLOOR_PLAN_BOXES = [
     left: "16.8067%", top: "35.5476%", width: "9.8039%", height: "20.8259%",
   },
   {
-    text: "스튜디오 3", color: "navy",
+    text: "스튜디오 3", color: "navy", studioNumber: 3,
     left: "69.6078%", top: "29.3537%", width: "25.2101%", height: "24.0575%",
   },
   {
@@ -36,15 +36,15 @@ export const FLOOR_PLAN_BOXES = [
     left: "25.2101%", top: "60.5027%", width: "21.2885%", height: "4.3088%",
   },
   {
-    text: "스튜디오 2", color: "pink",
+    text: "스튜디오 2", color: "pink", studioNumber: 2,
     left: "69.6078%", top: "60.5925%", width: "25.2101%", height: "13.8241%",
   },
   {
-    text: "스튜디오 1", color: "pink",
+    text: "스튜디오 1", color: "pink", studioNumber: 1,
     left: "69.6078%", top: "76.3914%", width: "25.2101%", height: "16.3375%",
   },
   {
-    text: "스튜디오\n10", color: "pink",
+    text: "스튜디오\n10", color: "pink", studioNumber: 10,
     left: "8.5434%", top: "84.2908%", width: "16.8067%", height: "12.5673%",
   },
 ] as const;

@@ -1,19 +1,32 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
+import { useSearchParams } from "react-router-dom";
 import { cn } from "../../../utils/cn";
 import { BOOTH_COLORS } from "../constants";
 import { FLOOR_PLAN_BOXES } from "../data/floorPlan";
 
 export default function BoothFloorPlan() {
-  const [activeStudio, setActiveStudio] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeStudio = searchParams.get("studio");
+
+  function selectStudio(studioNumber: number) {
+    setSearchParams((previous) => {
+      const next = new URLSearchParams(previous);
+      next.set("studio", String(studioNumber));
+      return next;
+    });
+  }
 
   return (
     <section aria-label="전시장 배치도" className="w-full px-[18px]">
       <div className="w-full">
         <div className="relative aspect-[357/557] w-full overflow-hidden rounded-[8px] bg-white [container-type:inline-size]">
-          {FLOOR_PLAN_BOXES.map(({ text, color, ...bounds }) => {
+          {FLOOR_PLAN_BOXES.map((box) => {
+            const { text, color, left, top, width, height } = box;
+            const bounds = { left, top, width, height };
+            const studioNumber = "studioNumber" in box ? box.studioNumber : undefined;
             const colors = BOOTH_COLORS[color];
-            const isStudio = color !== "gray";
-            const isActive = isStudio && activeStudio === text;
+            const isStudio = studioNumber !== undefined;
+            const isActive = isStudio && activeStudio === String(studioNumber);
             const Label = isStudio ? "button" : "span";
 
             return (
@@ -27,7 +40,7 @@ export default function BoothFloorPlan() {
                 <Label
                   type={isStudio ? "button" : undefined}
                   aria-pressed={isStudio ? isActive : undefined}
-                  onClick={isStudio ? () => setActiveStudio(text) : undefined}
+                  onClick={isStudio ? () => selectStudio(studioNumber) : undefined}
                   className={cn(
                     "absolute flex items-center justify-center rounded-[2px] text-center text-[3.3613cqw] leading-[1.25] whitespace-pre",
                     isStudio && "cursor-pointer focus-visible:outline-2 focus-visible:-outline-offset-2",

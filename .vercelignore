@@ -1,0 +1,6 @@
+.claude
+.env*
+.git
+.vercel
+node_modules
+dist

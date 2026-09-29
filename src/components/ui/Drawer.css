@@ -1,0 +1,64 @@
+.drawer {
+  background: rgb(20 38 57 / 0%);
+  --drawer-duration: 480ms;
+  --drawer-easing: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --drawer-panel-width: 17.5rem;
+  --drawer-surface-overflow: 2rem;
+  transition:
+    background-color var(--drawer-duration) var(--drawer-easing),
+    display var(--drawer-duration) allow-discrete,
+    overlay var(--drawer-duration) allow-discrete;
+}
+
+.drawer[open] {
+  background: rgb(20 38 57 / 16%);
+}
+
+.drawer::backdrop {
+  background: transparent;
+}
+
+.drawer-panel {
+  position: relative;
+  isolation: isolate;
+  width: min(var(--drawer-panel-width), 82%);
+  transform: translate3d(100%, 0, 0);
+  will-change: transform;
+  transition: transform var(--drawer-duration) var(--drawer-easing);
+}
+
+.drawer-surface {
+  position: absolute;
+  inset:
+    calc(-1 * var(--drawer-surface-overflow))
+    calc(-1 * var(--drawer-surface-overflow))
+    calc(-1 * var(--drawer-surface-overflow))
+    0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.drawer[open] .drawer-panel {
+  transform: translate3d(0, 0, 0);
+}
+
+@starting-style {
+  .drawer[open] {
+    background: rgb(20 38 57 / 0%);
+  }
+
+  .drawer[open] .drawer-panel {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawer-panel {
+    transition: none;
+  }
+
+  .drawer-panel {
+    will-change: auto;
+  }
+}

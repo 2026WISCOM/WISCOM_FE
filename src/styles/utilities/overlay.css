@@ -1,0 +1,13 @@
+@utility frame-overlay {
+  position: fixed;
+  inset: 0;
+  width: var(--app-frame-width);
+  max-width: none;
+  height: var(--app-frame-height);
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  overflow: clip;
+  border: 0;
+  border-radius: var(--app-frame-radius);
+}

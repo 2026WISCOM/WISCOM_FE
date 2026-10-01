@@ -1,16 +1,15 @@
 import { ALL_GUESTBOOK_FILTER_ID, EVERYONE_RECIPIENT, GUESTBOOK_TEAMS } from "./constants";
 import type { GuestbookEntry } from "../../types/guestbook";
 import type { ProjectTeam } from "../../types/project";
-import { MOCK_PROJECTS } from "../projects/data/mockProjects";
-import { compareTeamNames } from "./teamOrder";
+import { PROJECTS } from "../../data/projects";
+import { compareTeamNames } from "../../utils/teamOrder";
 
 export function getInitialGuestbookFilter(searchParams: URLSearchParams) {
   const teamId = searchParams.get("teamId");
   if (teamId !== null) return `team:${teamId}`;
 
-  // Existing project links still use projectId until the project API is available.
   const projectId = searchParams.get("projectId");
-  const project = MOCK_PROJECTS.find(({ id }) => id === projectId);
+  const project = PROJECTS.find(({ id }) => id === projectId);
   return project ? `team:${project.teamName}` : ALL_GUESTBOOK_FILTER_ID;
 }
 

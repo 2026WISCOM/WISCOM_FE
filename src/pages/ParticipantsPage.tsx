@@ -1,4 +1,5 @@
 import { useId, useState } from "react";
+import { PARTICIPANTS } from "../data/participants";
 import { useDetailModal } from "../hooks/useDetailModal";
 import type { Participant } from "../types/participant";
 import ParticipantDetailModal from "./participants/components/ParticipantDetailModal";
@@ -6,7 +7,6 @@ import ParticipantFilters from "./participants/components/ParticipantFilters";
 import ParticipantItem from "./participants/components/ParticipantItem";
 import { ALL_PARTICIPANTS_FILTER } from "./participants/constants";
 import type { ParticipantFilter } from "./participants/constants";
-import { MOCK_PARTICIPANTS } from "./participants/data/mockParticipants";
 import { filterParticipants } from "./participants/utils/filterParticipants";
 
 export default function ParticipantsPage() {
@@ -21,7 +21,7 @@ export default function ParticipantsPage() {
 	const [selectedFilter, setSelectedFilter] = useState<ParticipantFilter>(
 		ALL_PARTICIPANTS_FILTER,
 	);
-	const participants = filterParticipants(MOCK_PARTICIPANTS, selectedFilter);
+	const participants = filterParticipants(PARTICIPANTS, selectedFilter);
 
 	return (
 		<section className="dark-gradient-background min-h-full pt-28 pb-12">
@@ -43,6 +43,9 @@ export default function ParticipantsPage() {
 					<ParticipantItem
 						key={participant.id}
 						participant={participant}
+						showTeamName={PARTICIPANTS.some(
+							(other) => other.id !== participant.id && other.name === participant.name,
+						)}
 						onSelect={openParticipant}
 						dialogId={detailId}
 					/>

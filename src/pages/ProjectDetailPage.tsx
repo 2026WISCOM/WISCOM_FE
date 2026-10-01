@@ -3,11 +3,11 @@ import { createSearchParams, generatePath, Link, useParams } from "react-router-
 import ContentSection from "../components/ui/ContentSection";
 import GlassLink from "../components/ui/GlassLink";
 import { ROUTES } from "../constants/routes";
-import { MOCK_PROJECTS } from "./projects/data/mockProjects";
+import { PROJECTS } from "../data/projects";
 
 export default function ProjectDetailPage() {
   const { projectId } = useParams();
-  const project = MOCK_PROJECTS.find(({ id }) => id === projectId);
+  const project = PROJECTS.find(({ id }) => id === projectId);
 
   if (!project) {
     return (
@@ -20,7 +20,7 @@ export default function ProjectDetailPage() {
     );
   }
 
-  const relatedProjects = MOCK_PROJECTS.filter(
+  const relatedProjects = PROJECTS.filter(
     ({ id, studioNumber }) => id !== project.id && studioNumber === project.studioNumber,
   );
 
@@ -34,7 +34,7 @@ export default function ProjectDetailPage() {
 
       <header className="mt-[15px] flex flex-col items-center text-center">
         <h1 className="heading-large">{project.title}</h1>
-        <p className="body-medium">{project.description}</p>
+        {project.description && <p className="body-medium">{project.description}</p>}
         <p className="body-small mt-[7px] rounded-full border border-navy px-[18px] py-0.5 text-navy">
           스튜디오 {project.studioNumber}
         </p>
@@ -45,11 +45,15 @@ export default function ProjectDetailPage() {
       </ContentSection>
 
       <ContentSection headingId="project-demo" title="현장 시연 기능" className="mt-9">
-        <ul className="body-small flex list-disc flex-col gap-1.5 pl-5">
-          {project.demoFeatures.map((feature) => (
-            <li key={feature}>{feature}</li>
-          ))}
-        </ul>
+        {project.demoFeatures.length > 0 ? (
+          <ul className="body-small flex list-disc flex-col gap-1.5 pl-5">
+            {project.demoFeatures.map((feature) => (
+              <li key={feature}>{feature}</li>
+            ))}
+          </ul>
+        ) : (
+          <p className="body-small">시연 안내를 준비 중입니다.</p>
+        )}
       </ContentSection>
 
       <ContentSection headingId="project-team" title="만든 사람들" className="mt-9">
@@ -67,7 +71,7 @@ export default function ProjectDetailPage() {
             <ul className="body-small flex flex-col gap-1.5">
               {project.members.map(({ name, roles }) => (
                 <li key={name}>
-                  <strong className="font-bold">{name}</strong>{" "}{roles.join(" · ")}
+                  <strong className="font-bold">{name}</strong>{roles.length > 0 && ` ${roles.join(" · ")}`}
                 </li>
               ))}
             </ul>

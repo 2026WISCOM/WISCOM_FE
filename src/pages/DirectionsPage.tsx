@@ -11,7 +11,10 @@ const MAP_SERVICES = [
 	},
 	{ name: "네이버지도", href: `https://map.naver.com/p/search/${MAP_QUERY}` },
 ] as const;
-const TRANSIT_TYPES = ["버스", "지하철"] as const;
+const TRANSIT_ROUTES = [
+	{ type: "버스", description: "1119, 노원15, 도봉01, 도봉08, 도봉09" },
+	{ type: "지하철", description: "1, 4호선 창동역 5번 출구" },
+] as const;
 const PARKING_NOTICES = [
 	"건물 지하 주차장 이용 가능",
 	"주차비 30분 무료, 이후 10분당 500원",
@@ -72,13 +75,13 @@ export default function DirectionsPage() {
 				aria-label="대중교통 안내"
 				className="mt-[19px] flex flex-col gap-3 text-navy"
 			>
-				{TRANSIT_TYPES.map((type) => (
+				{TRANSIT_ROUTES.map(({ type, description }) => (
 					<li key={type} className="flex items-start gap-3">
 						<span className="body-xsmall shrink-0 rounded-full border border-current px-[21px] py-0.5">
 							{type}
 						</span>
 						<p className="body-medium break-keep">
-							노선 정보 추후 안내
+							{description}
 						</p>
 					</li>
 				))}

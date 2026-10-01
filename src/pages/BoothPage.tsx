@@ -1,8 +1,8 @@
 import { generatePath, Link } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
+import { PROJECTS } from "../data/projects";
 import BoothFloorPlan from "./booths/components/BoothFloorPlan";
 import { BOOTH_COLORS } from "./booths/constants";
-import { MOCK_PROJECTS } from "./projects/data/mockProjects";
 
 const LEGEND_ITEMS = [
   { label: "내부 전시 공간", color: "navy" },
@@ -57,7 +57,7 @@ export default function BoothPage() {
                     스튜디오 {studioNumber}
                   </h3>
                   <ul className="body-small flex list-disc flex-col gap-3 pl-5 text-ink">
-                    {MOCK_PROJECTS.filter((project) => project.studioNumber === studioNumber).map((project) => (
+                    {PROJECTS.filter((project) => project.studioNumber === studioNumber).map((project) => (
                       <li key={project.id}>
                         <Link
                           to={generatePath(ROUTES.projectDetail, { projectId: project.id })}

@@ -393,7 +393,7 @@ try {
     [`?teamId=${encodeURIComponent("아직 글 없는 팀")}`, "아직 글 없는 팀", "아직 글 없는 팀"],
     [`?teamId=${encodeURIComponent("모두에게")}`, "모두에게", "모두에게"],
     ["?teamId=", "수신 팀 미지정", ""],
-    ["?projectId=project-1", "팀 01", "팀 01"],
+    ["?projectId=project-1", "데드락", "데드락"],
     ["?projectId=invalid-project", "전체", null],
   ]) {
     await visit(search);
@@ -401,8 +401,8 @@ try {
     assert.equal(await evaluate("document.querySelector('section button[aria-pressed=true]').textContent.trim()"), label);
     await click('section button[aria-haspopup="dialog"]');
     await waitFor(`!!document.querySelector(${JSON.stringify(combo)})`);
-    assert.equal(await evaluate(`document.querySelector(${JSON.stringify(combo)}).textContent.trim()`), teamId === "모두에게" ? "모두에게" : "응원할 팀을 선택해주세요",
-      "Everyone is writable; unknown, blank, and legacy recipients still require a selection");
+    assert.equal(await evaluate(`document.querySelector(${JSON.stringify(combo)}).textContent.trim()`), composeTeamLabels.includes(teamId) ? teamId : "응원할 팀을 선택해주세요",
+      "Known recipients are preselected; unknown and blank recipients still require a selection");
     await key("Escape", 27);
     await waitFor("!document.querySelector('dialog[open]')");
   }

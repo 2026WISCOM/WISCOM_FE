@@ -23,10 +23,10 @@ export default function ParticipantDetailModal({ id, participant, isOpen, onClos
         <div className="flex w-full flex-col items-center gap-2.5">
           <img src={bubbleImage} alt="" width={46} height={46} className="size-[46px] object-contain" />
           <div className="flex w-full flex-col items-center gap-5">
-            <div className="flex flex-col items-center gap-1">
+            <div className="flex flex-col items-center">
               <h2 id={titleId} className="display-medium">{participant.name}</h2>
-              <p className="body-small">{participant.teamName}</p>
-              <p className="body-small rounded-full border border-on-dark px-[18px] py-[2px]">
+              <p className="body-medium">{participant.teamName}</p>
+              <p className="body-small mt-3 rounded-full border border-on-dark px-[18px] py-[2px]">
                 스튜디오 {participant.studioNumber}
               </p>
             </div>

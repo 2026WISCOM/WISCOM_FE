@@ -1,34 +1,33 @@
 import { useId, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import Button from "../components/ui/Button";
 import FilterBar from "../components/ui/FilterBar";
 import FloatingActionButton from "../components/ui/FloatingActionButton";
+import type { CreateGuestbookRequest } from "../types/guestbook";
 import GuestbookComposeModal from "./guestbook/components/GuestbookComposeModal";
 import GuestbookList from "./guestbook/components/GuestbookList";
-import { ALL_GUESTBOOK_FILTER_ID, EVERYONE_RECIPIENT, GUESTBOOK_FILTERS } from "./guestbook/constants";
-import { GUESTBOOK_TEAMS, MOCK_GUESTBOOK_ENTRIES } from "./guestbook/data/mockGuestbookEntries";
-import type { GuestbookDraft } from "./guestbook/types";
-import { filterGuestbookEntries } from "./guestbook/utils";
+import { GUESTBOOK_TEAMS } from "./guestbook/constants";
+import { useGuestbooks } from "./guestbook/hooks/useGuestbooks";
+import { filterGuestbookEntries, getGuestbookFilters, getGuestbookTeams, getInitialGuestbookFilter } from "./guestbook/utils";
 
 export default function GuestbookPage() {
   const [searchParams] = useSearchParams();
-  const [selectedFilterId, setSelectedFilterId] = useState(() => {
-    const projectId = searchParams.get("projectId");
-    return GUESTBOOK_FILTERS.find(({ id }) => id === projectId)?.id ?? ALL_GUESTBOOK_FILTER_ID;
-  });
-  const [entries, setEntries] = useState(MOCK_GUESTBOOK_ENTRIES);
+  const [selectedFilterId, setSelectedFilterId] = useState(() => getInitialGuestbookFilter(searchParams));
+  const { entries, status, error, retry, addEntry } = useGuestbooks();
   const [isComposeOpen, setIsComposeOpen] = useState(false);
   const [composeSession, setComposeSession] = useState(0);
   const [announcement, setAnnouncement] = useState("");
   const pageRef = useRef<HTMLElement>(null);
   const resultsId = useId();
   const composeId = useId();
+  const teams = getGuestbookTeams(entries, selectedFilterId);
   const visibleEntries = filterGuestbookEntries(entries, selectedFilterId);
 
-  function handleAddEntry(draft: GuestbookDraft) {
-    setEntries((previous) => [{ id: crypto.randomUUID(), ...draft }, ...previous]);
-    setSelectedFilterId(draft.projectId || EVERYONE_RECIPIENT.id);
+  async function handleAddEntry(draft: CreateGuestbookRequest) {
+    const entry = await addEntry(draft);
+    setSelectedFilterId(`team:${entry.teamId}`);
     setIsComposeOpen(false);
-    setAnnouncement(`${draft.author}님의 방명록이 추가되었습니다.`);
+    setAnnouncement(`${entry.writer}님의 방명록이 등록되었습니다.`);
     pageRef.current?.scrollIntoView({ block: "start", behavior: "instant" });
   }
 
@@ -36,14 +35,27 @@ export default function GuestbookPage() {
     <section ref={pageRef} className="dark-gradient-background min-w-0 w-full pt-navbar pb-[100px] text-on-dark">
       <h1 className="sr-only">방명록</h1>
       <FilterBar
-        items={GUESTBOOK_FILTERS}
+        items={getGuestbookFilters(teams)}
         selectedId={selectedFilterId}
         onSelect={setSelectedFilterId}
         resultsId={resultsId}
         label="팀별 방명록 필터"
         layout="scroll"
       />
-      <GuestbookList id={resultsId} entries={visibleEntries} />
+      {status === "success" ? (
+        <GuestbookList id={resultsId} entries={visibleEntries} />
+      ) : (
+        <div id={resultsId} aria-busy={status === "loading"} className="body-small mt-6 px-5 text-center">
+          {status === "loading" ? (
+            <p role="status">방명록을 불러오는 중입니다.</p>
+          ) : (
+            <>
+              <p role="alert">{error}</p>
+              <Button onClick={retry} className="mt-3 rounded-full border border-current px-5">다시 시도</Button>
+            </>
+          )}
+        </div>
+      )}
       <p role="status" className="sr-only">{announcement}</p>
 
       <FloatingActionButton
@@ -51,6 +63,7 @@ export default function GuestbookPage() {
         aria-haspopup="dialog"
         aria-controls={composeId}
         onClick={() => {
+          setAnnouncement("");
           setComposeSession((previous) => previous + 1);
           setIsComposeOpen(true);
         }}
@@ -77,8 +90,8 @@ export default function GuestbookPage() {
           id={composeId}
           isOpen={isComposeOpen}
           onClose={() => setIsComposeOpen(false)}
-          projects={GUESTBOOK_TEAMS}
-          initialProjectId={selectedFilterId}
+          teams={GUESTBOOK_TEAMS}
+          initialRecipientId={selectedFilterId}
           onSubmit={handleAddEntry}
         />
       )}

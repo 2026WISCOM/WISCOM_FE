@@ -20,14 +20,15 @@ export default function FilterBar<T extends string>({
   label,
   layout,
 }: FilterBarProps<T>) {
-  const { trackRef, selectedButtonRef, indicator } = useFilterIndicator(selectedId);
+  const itemsKey = JSON.stringify(items);
+  const { trackRef, selectedButtonRef, indicator } = useFilterIndicator(selectedId, itemsKey);
   const isScrollable = layout === "scroll";
 
   useEffect(() => {
     if (isScrollable) {
       selectedButtonRef.current?.scrollIntoView({ block: "nearest", inline: "nearest" });
     }
-  }, [selectedId, isScrollable, selectedButtonRef]);
+  }, [selectedId, itemsKey, isScrollable, selectedButtonRef]);
 
   const filters = (
     <div

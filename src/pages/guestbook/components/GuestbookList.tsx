@@ -1,8 +1,4 @@
-import { EVERYONE_RECIPIENT } from "../constants";
-import { GUESTBOOK_TEAMS } from "../data/mockGuestbookEntries";
-import type { GuestbookEntry } from "../types";
-
-const TEAM_NAMES = new Map(GUESTBOOK_TEAMS.map(({ id, teamName }) => [id, teamName]));
+import type { GuestbookEntry } from "../../../types/guestbook";
 
 type GuestbookListProps = {
   id: string;
@@ -18,9 +14,9 @@ export default function GuestbookList({ id, entries }: GuestbookListProps) {
     >
       {entries.length > 0 ? entries.map((entry) => (
         <li key={entry.id} className="glass-effect body-small flex min-w-0 w-full flex-col gap-[5px] rounded-[8px] px-[18px] py-4 [overflow-wrap:anywhere]">
-          <p className="font-bold">To. {TEAM_NAMES.get(entry.projectId) ?? EVERYONE_RECIPIENT.teamName}</p>
+          <p className="font-bold">To. {entry.teamId || "수신 팀 미지정"}</p>
           <p className="whitespace-pre-wrap">{entry.content}</p>
-          <p className="text-right font-bold">From. {entry.author}</p>
+          <p className="text-right font-bold">From. {entry.writer}</p>
         </li>
       )) : (
         <li className="body-small text-center">

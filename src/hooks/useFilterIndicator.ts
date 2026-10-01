@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 
-export function useFilterIndicator(selectedFilter: string) {
+export function useFilterIndicator(selectedFilter: string, itemsKey: string) {
   const trackRef = useRef<HTMLDivElement>(null);
   const selectedButtonRef = useRef<HTMLButtonElement>(null);
   const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
@@ -28,7 +28,7 @@ export function useFilterIndicator(selectedFilter: string) {
     observer.observe(button);
 
     return () => observer.disconnect();
-  }, [selectedFilter]);
+  }, [selectedFilter, itemsKey]);
 
   return { trackRef, selectedButtonRef, indicator };
 }

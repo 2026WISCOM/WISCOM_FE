@@ -1,42 +1,46 @@
 import { useId, useRef, useState, type FormEvent } from "react";
 import Button from "../../../components/ui/Button";
 import Modal from "../../../components/ui/Modal";
+import type { CreateGuestbookRequest } from "../../../types/guestbook";
 import type { ProjectTeam } from "../../../types/project";
-import { AUTHOR_MAX_LENGTH, EVERYONE_RECIPIENT, MESSAGE_MAX_LENGTH } from "../constants";
-import type { GuestbookDraft } from "../types";
-import { getRecipientProjectId } from "../utils";
+import { AUTHOR_MAX_LENGTH, MESSAGE_MAX_LENGTH } from "../constants";
+import { getRecipientTeamId } from "../utils";
 import GuestbookTeamSelect from "./GuestbookTeamSelect";
 
 type GuestbookComposeModalProps = {
   id: string;
   isOpen: boolean;
   onClose: () => void;
-  projects: readonly ProjectTeam[];
-  initialProjectId: string;
-  onSubmit: (entry: GuestbookDraft) => void;
+  teams: readonly ProjectTeam[];
+  initialRecipientId: string;
+  onSubmit: (entry: CreateGuestbookRequest) => Promise<void>;
 };
 
 export default function GuestbookComposeModal({
   id,
   isOpen,
   onClose,
-  projects,
-  initialProjectId,
+  teams,
+  initialRecipientId,
   onSubmit,
 }: GuestbookComposeModalProps) {
   const titleId = useId();
   const fieldId = useId();
-  const [recipient, setRecipient] = useState(initialProjectId);
+  const [recipient, setRecipient] = useState(() => teams.some(({ id }) => id === initialRecipientId) ? initialRecipientId : "");
   const [recipientError, setRecipientError] = useState(false);
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const submittingRef = useRef(false);
   const teamButtonRef = useRef<HTMLButtonElement>(null);
   const authorRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submittingRef.current) return;
     const form = event.currentTarget;
-    if (recipient !== EVERYONE_RECIPIENT.id && !projects.some(({ id }) => id === recipient)) {
+    if (!teams.some(({ id }) => id === recipient)) {
       setRecipientError(true);
       teamButtonRef.current?.focus();
       return;
@@ -44,15 +48,27 @@ export default function GuestbookComposeModal({
     const author = authorRef.current;
     const content = messageRef.current;
     if (!author || !content) return;
-    const entry = {
-      projectId: getRecipientProjectId(recipient),
-      author: author.value.trim(),
+    const entry: CreateGuestbookRequest = {
+      teamId: getRecipientTeamId(recipient),
+      writer: author.value.trim(),
       content: content.value.trim(),
     };
 
-    author.setCustomValidity(entry.author ? "" : "작성자 이름을 입력해 주세요.");
+    author.setCustomValidity(entry.writer ? "" : "작성자 이름을 입력해 주세요.");
     content.setCustomValidity(entry.content ? "" : "응원 메시지를 입력해 주세요.");
-    if (form.reportValidity()) onSubmit(entry);
+    if (!form.reportValidity()) return;
+
+    submittingRef.current = true;
+    setIsSubmitting(true);
+    setSubmitError("");
+    try {
+      await onSubmit(entry);
+    } catch (error) {
+      setSubmitError(error instanceof Error && error.message ? error.message : "방명록을 저장하지 못했습니다. 잠시 후 다시 시도해 주세요.");
+    } finally {
+      submittingRef.current = false;
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -60,10 +76,13 @@ export default function GuestbookComposeModal({
       id={id}
       isOpen={isOpen}
       labelledBy={titleId}
-      onClose={onClose}
+      onClose={() => {
+        if (!submittingRef.current) onClose();
+      }}
     >
       <form
         className="w-full px-5 text-on-dark glass-light"
+        aria-busy={isSubmitting}
         onSubmit={handleSubmit}
         onInput={(event) => {
           const field = event.target;
@@ -81,7 +100,7 @@ export default function GuestbookComposeModal({
             <label id={`${fieldId}-team-label`} htmlFor={`${fieldId}-team`} className="body-medium block pl-[10px] font-bold">To.</label>
             <GuestbookTeamSelect
               id={`${fieldId}-team`}
-              projects={[EVERYONE_RECIPIENT, ...projects]}
+              teams={teams}
               value={recipient}
               onChange={(value) => {
                 setRecipient(value);
@@ -89,6 +108,7 @@ export default function GuestbookComposeModal({
               }}
               buttonRef={teamButtonRef}
               error={recipientError}
+              disabled={isSubmitting}
             />
             {recipientError && <p id={`${fieldId}-team-error`} role="alert" className="body-small mt-1 pl-[10px]">응원할 팀을 선택해주세요.</p>}
           </div>
@@ -102,6 +122,7 @@ export default function GuestbookComposeModal({
                 value={message}
                 onChange={(event) => setMessage(event.currentTarget.value)}
                 required
+                disabled={isSubmitting}
                 maxLength={MESSAGE_MAX_LENGTH}
                 aria-describedby={`${fieldId}-count`}
                 placeholder="전하고 싶은 말을 자유롭게 적어주세요"
@@ -121,6 +142,7 @@ export default function GuestbookComposeModal({
               type="text"
               autoComplete="name"
               required
+              disabled={isSubmitting}
               maxLength={AUTHOR_MAX_LENGTH}
               aria-label={`From. 작성자 이름 (최대 ${AUTHOR_MAX_LENGTH}자)`}
               placeholder="작성자 이름을 입력해주세요"
@@ -128,8 +150,11 @@ export default function GuestbookComposeModal({
             />
           </div>
         </div>
-        <Button type="submit" className="glass-effect body-medium mt-[30px] h-[58px] w-full rounded-full text-on-dark">
-          방명록 남기기
+        {submitError && (
+          <p role="alert" className="body-small mt-[15px] text-center">{submitError}</p>
+        )}
+        <Button type="submit" disabled={isSubmitting} className="glass-effect body-medium mt-[30px] h-[58px] w-full rounded-full text-on-dark">
+          {isSubmitting ? "저장 중..." : "방명록 남기기"}
         </Button>
       </form>
     </Modal>

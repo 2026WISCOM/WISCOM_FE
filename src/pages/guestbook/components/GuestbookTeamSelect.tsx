@@ -4,21 +4,23 @@ import { cn } from "../../../utils/cn";
 
 type GuestbookTeamSelectProps = {
   id: string;
-  projects: readonly ProjectTeam[];
+  teams: readonly ProjectTeam[];
   value: string;
   onChange: (value: string) => void;
   buttonRef: RefObject<HTMLButtonElement | null>;
   error: boolean;
+  disabled: boolean;
 };
 
-export default function GuestbookTeamSelect({ id, projects, value, onChange, buttonRef, error }: GuestbookTeamSelectProps) {
+export default function GuestbookTeamSelect({ id, teams, value, onChange, buttonRef, error, disabled }: GuestbookTeamSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
-  const selectedIndex = projects.findIndex((project) => project.id === value);
-  const selectedTeam = projects[selectedIndex];
+  const selectedIndex = teams.findIndex((team) => team.id === value);
+  const selectedTeam = teams[selectedIndex];
   const listId = `${id}-options`;
+  const isExpanded = isOpen && !disabled;
 
   useEffect(() => {
     if (!isOpen) return;
@@ -39,8 +41,8 @@ export default function GuestbookTeamSelect({ id, projects, value, onChange, but
   }
 
   function handleSelectTeam(index: number) {
-    const team = projects[index];
-    if (!team) return;
+    const team = teams[index];
+    if (disabled || !team) return;
     onChange(team.id);
     setIsOpen(false);
     buttonRef.current?.focus();
@@ -49,7 +51,7 @@ export default function GuestbookTeamSelect({ id, projects, value, onChange, but
   function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
     if (["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) {
       event.preventDefault();
-      const lastIndex = projects.length - 1;
+      const lastIndex = teams.length - 1;
       if (lastIndex < 0) return;
       setIsOpen(true);
       if (event.key === "Home") setActiveIndex(0);
@@ -79,12 +81,13 @@ export default function GuestbookTeamSelect({ id, projects, value, onChange, but
         ref={buttonRef}
         id={id}
         type="button"
+        disabled={disabled}
         role="combobox"
         aria-labelledby={`${id}-label`}
         aria-haspopup="listbox"
-        aria-expanded={isOpen}
-        aria-controls={isOpen ? listId : undefined}
-        aria-activedescendant={isOpen && projects[activeIndex] ? `${id}-option-${activeIndex}` : undefined}
+        aria-expanded={isExpanded}
+        aria-controls={isExpanded ? listId : undefined}
+        aria-activedescendant={isExpanded && teams[activeIndex] ? `${id}-option-${activeIndex}` : undefined}
         aria-required="true"
         aria-invalid={error || undefined}
         aria-describedby={error ? `${id}-error` : undefined}
@@ -100,12 +103,12 @@ export default function GuestbookTeamSelect({ id, projects, value, onChange, but
           width="16" height="16" viewBox="0 0 16 16" fill="none"
           stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
           aria-hidden="true"
-          className={cn("pointer-events-none absolute top-1/2 right-[15px] -translate-y-1/2 text-on-dark transition-transform duration-300 motion-reduce:transition-none", isOpen && "rotate-180")}
+          className={cn("pointer-events-none absolute top-1/2 right-[15px] -translate-y-1/2 text-on-dark transition-transform duration-300 motion-reduce:transition-none", isExpanded && "rotate-180")}
         >
           <path d="m4 6 4 4 4-4" />
         </svg>
       </button>
-      {isOpen && (
+      {isExpanded && (
         <div className="glass-effect absolute inset-x-0 top-full z-20 overflow-hidden rounded-[22px] [--glass-background:rgba(58,77,98,0.92)] [--glass-fallback-background:#3a4d62] [--glass-solid-background:#3a4d62]">
           <ul
             ref={listRef}
@@ -114,12 +117,12 @@ export default function GuestbookTeamSelect({ id, projects, value, onChange, but
             aria-labelledby={`${id}-label`}
             className="max-h-[280px] divide-y divide-white/10 overflow-y-auto overscroll-contain"
           >
-            {projects.map((project, index) => (
+            {teams.map((team, index) => (
               <li
-                key={project.id}
+                key={team.id}
                 id={`${id}-option-${index}`}
                 role="option"
-                aria-selected={project.id === value}
+                aria-selected={team.id === value}
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => handleSelectTeam(index)}
                 className={cn(
@@ -127,8 +130,8 @@ export default function GuestbookTeamSelect({ id, projects, value, onChange, but
                   activeIndex === index && "bg-white/10",
                 )}
               >
-                <span className="min-w-0 flex-1 truncate">{project.teamName}</span>
-                {project.id === value && (
+                <span className="min-w-0 flex-1 truncate">{team.teamName}</span>
+                {team.id === value && (
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="shrink-0">
                     <path d="m4 9 3 3 7-7" />
                   </svg>

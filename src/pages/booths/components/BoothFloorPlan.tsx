@@ -34,7 +34,12 @@ export default function BoothFloorPlan() {
                 <div
                   aria-hidden="true"
                   className="absolute rounded-[2px]"
-                  style={{ ...bounds, ...colors, background: isActive ? colors.color : colors.background }}
+                  style={{
+                    ...bounds,
+                    ...colors,
+                    background: isActive ? colors.color : colors.background,
+                    boxShadow: isActive ? `0 0 10px 0 ${colors.color}` : "none",
+                  }}
                 />
                 {/* Flex only centers text; every shape and label uses the root's absolute coordinates. */}
                 <Label

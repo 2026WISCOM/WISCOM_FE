@@ -29,7 +29,7 @@ export default function ProjectDetailPage() {
       <img
         src={project.image}
         alt={`${project.title} 미리보기`}
-        className="h-auto w-full"
+        className="h-auto w-full rounded-[8px]"
       />
 
       <header className="mt-[15px] flex flex-col items-center text-center">

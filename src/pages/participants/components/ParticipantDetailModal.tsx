@@ -33,7 +33,7 @@ export default function ParticipantDetailModal({ id, participant, isOpen, onClos
             <img
               src={participant.projectImage}
               alt={`${participant.name}의 프로젝트 미리보기`}
-              className="h-auto w-[calc(100%-80px)]"
+              className="h-auto w-[calc(100%-80px)] rounded-[8px]"
             />
           </div>
         </div>

@@ -1,3 +1,4 @@
+import buildingEntranceImage from "../assets/building-entrance.gif";
 import ContentSection from "../components/ui/ContentSection";
 import GlassLink from "../components/ui/GlassLink";
 
@@ -32,25 +33,11 @@ export default function DirectionsPage() {
 				</p>
 			</header>
 
-			<div className="mt-[17px] overflow-hidden rounded-lg">
-				{/* 실제 장소 사진과 로고가 준비되면 이미지로 교체합니다. */}
-				<div
-					role="img"
-					aria-label="서울창업허브 창동 장소 이미지 준비 중"
-					className="body-small flex h-[240px] items-center justify-center bg-[#dce3e9]"
-				>
-					장소 이미지
-				</div>
-				<div className="flex h-11 items-center justify-center bg-surface-muted">
-					<div
-						role="img"
-						aria-label="서울창업허브 창동 로고 준비 중"
-						className="body-xsmall flex h-[25px] w-[100px] items-center justify-center bg-white"
-					>
-						로고
-					</div>
-				</div>
-			</div>
+			<img
+				src={buildingEntranceImage}
+				alt="서울창업허브 창동 건물 입구"
+				className="mt-[17px] h-[284px] w-full rounded-lg object-cover"
+			/>
 
 			<div
 				aria-label="지도 서비스"

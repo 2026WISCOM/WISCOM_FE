@@ -24,7 +24,7 @@ export default function ParticipantsPage() {
 	const participants = filterParticipants(PARTICIPANTS, selectedFilter);
 
 	return (
-		<section className="dark-gradient-background min-h-full pt-28 pb-12">
+		<section className="dark-gradient-background pt-navbar pb-footer">
 			<h1 className="sr-only">참가자 목록</h1>
 			<ParticipantFilters
 				selectedFilter={selectedFilter}

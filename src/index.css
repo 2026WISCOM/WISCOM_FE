@@ -39,7 +39,11 @@
 }
 
 @utility pt-navbar {
-  padding-top: calc(var(--navbar-top) + var(--navbar-height) + var(--page-gap, 24px));
+  padding-top: calc(var(--navbar-top) + var(--navbar-height) + 24px);
+}
+
+@utility pb-footer {
+  padding-bottom: 48px;
 }
 
 /* 기본 리셋 및 반응형 베이스 */

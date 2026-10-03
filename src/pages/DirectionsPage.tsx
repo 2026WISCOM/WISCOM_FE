@@ -25,7 +25,7 @@ const PARKING_NOTICES = [
 
 export default function DirectionsPage() {
 	return (
-		<section className="bg-page px-5 pt-navbar pb-16 text-ink">
+		<section className="bg-page px-5 pt-navbar pb-footer text-ink">
 			<header className="flex flex-col gap-1">
 				<h1 className="heading-large">서울창업허브 창동</h1>
 				<p className="body-medium break-keep">

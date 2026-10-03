@@ -12,7 +12,7 @@ const COMMITTEE = [
 
 export default function ExhibitionPage() {
   return (
-    <section className="flex flex-col gap-[30px] bg-deep-navy px-5 pt-navbar pb-16 text-on-dark">
+    <section className="flex flex-col gap-[30px] bg-deep-navy px-5 pt-navbar pb-footer text-on-dark">
       <h1 className="sr-only">전시 소개</h1>
 
       {/* 실제 전시 포스터가 준비되면 이미지로 교체합니다. */}

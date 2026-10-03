@@ -17,7 +17,7 @@ const EXHIBITION_SPACES = [
 
 export default function BoothPage() {
   return (
-    <div className="bg-page pt-navbar [--page-gap:43px] pb-32">
+    <div className="bg-page pt-navbar pb-footer">
       <h1 className="sr-only">부스배치도</h1>
       <ul aria-label="배치도 범례" className="body-xsmall flex items-center justify-between px-9 text-muted">
         {LEGEND_ITEMS.map(({ label, color }) => (

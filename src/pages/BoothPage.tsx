@@ -12,8 +12,8 @@ const LEGEND_ITEMS = [
 ] as const;
 
 const EXHIBITION_SPACES = [
-  { id: "indoor", title: "내부 전시 공간", color: "navy", studios: [6, 5, 4, 3] },
-  { id: "outdoor", title: "외부 전시 공간", color: "pink", studios: [2, 1, 10] },
+  { id: "indoor", title: "내부 전시 공간", color: "navy", studios: [3, 4, 5, 6] },
+  { id: "outdoor", title: "외부 전시 공간", color: "pink", studios: [1, 2, 10] },
 ] as const;
 
 export default function BoothPage() {

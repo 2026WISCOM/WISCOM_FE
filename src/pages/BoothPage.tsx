@@ -1,4 +1,5 @@
-import { generatePath, Link } from "react-router-dom";
+import { useEffect } from "react";
+import { generatePath, Link, useSearchParams } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 import { PROJECTS } from "../data/projects";
 import BoothFloorPlan from "./booths/components/BoothFloorPlan";
@@ -16,6 +17,17 @@ const EXHIBITION_SPACES = [
 ] as const;
 
 export default function BoothPage() {
+  const [searchParams] = useSearchParams();
+  const activeStudio = searchParams.get("studio");
+
+  useEffect(() => {
+    if (!activeStudio) return;
+    document.getElementById(`studio-${activeStudio}`)?.scrollIntoView({
+      block: "start",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+    });
+  }, [activeStudio]);
+
   return (
     <div className="bg-page pt-navbar pb-footer">
       <h1 className="sr-only">부스배치도</h1>
@@ -48,7 +60,12 @@ export default function BoothPage() {
 
             <div className="mt-6 flex flex-col gap-8 px-5">
               {studios.map((studioNumber) => (
-                <section key={studioNumber} aria-labelledby={`studio-${studioNumber}-heading`} className="flex flex-col gap-3">
+                <section
+                  key={studioNumber}
+                  id={`studio-${studioNumber}`}
+                  aria-labelledby={`studio-${studioNumber}-heading`}
+                  className="flex scroll-mt-[calc(var(--navbar-top)+var(--navbar-height)+24px)] flex-col gap-3"
+                >
                   <h3
                     id={`studio-${studioNumber}-heading`}
                     className="body-small self-start rounded-full px-[19px] py-0.5 text-on-dark"

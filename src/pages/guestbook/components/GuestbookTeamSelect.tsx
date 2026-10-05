@@ -109,7 +109,7 @@ export default function GuestbookTeamSelect({ id, teams, value, onChange, button
         </svg>
       </button>
       {isExpanded && (
-        <div className="glass-effect absolute inset-x-0 top-full z-20 overflow-hidden rounded-[22px] [--glass-background:rgba(58,77,98,0.92)] [--glass-fallback-background:#3a4d62] [--glass-solid-background:#3a4d62]">
+        <div className="glass-effect absolute inset-x-0 top-full z-20 overflow-hidden rounded-[22px] [--glass-background:rgba(58,77,98,0.75)] [--glass-fallback-background:#3a4d62] [--glass-solid-background:#3a4d62]">
           <ul
             ref={listRef}
             id={listId}

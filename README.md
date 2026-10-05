@@ -164,6 +164,10 @@ src/
 `glass-effect`에 `glass-dark` 또는 `glass-light`를 조합해 반복되는 글래스 색상을 적용할 수 있습니다.
 배치도처럼 동적인 퍼센트 좌표가 필요한 경우에는 `style`을 사용합니다.
 
+홈·참여자·방명록·끝나지 않은 이야기의 배경은 `styles/utilities/background.css`에서 관리합니다.
+스크롤 영역 바깥의 `.app-frame`에 `#0E2540`과 `poster-background.png`를 `100% auto` 크기로 적용해 이미지를 고정합니다.
+모바일 스크롤 경계의 바탕색도 남색으로 맞추며, 전시소개는 이미지 없이 기존 단색 배경을 사용합니다.
+
 ## 브라우저 확인
 
 `scripts/check-guestbook-dropdown.mjs`는 API 응답을 가로채 성공·로딩·빈 목록·오류·재시도·취소와 팀 필터를 확인합니다.

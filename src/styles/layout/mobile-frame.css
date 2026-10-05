@@ -17,7 +17,7 @@
 	height: var(--app-frame-height);
 	overflow: clip;
 	border-radius: var(--app-frame-radius);
-	background: #fff;
+	background-color: var(--app-background, #fff);
 }
 
 .app-content {
@@ -28,6 +28,10 @@
 }
 
 @media (min-width: 640px) {
+	.site-shell {
+		background: var(--color-deep-navy) url("../../assets/desktop-backgorund.png") center / cover no-repeat;
+	}
+
 	:root {
 		--app-frame-width: 26.875rem;
 		--app-frame-height: min(56rem, calc(100dvh - 3rem));
@@ -35,7 +39,6 @@
 	}
 
 	.app-frame {
-		outline: 1px solid rgb(255 255 255 / 70%);
-		box-shadow: var(--shadow-glass);
+		box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.50);
 	}
 }

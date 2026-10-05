@@ -22,8 +22,8 @@ export default function NeverEndingStoryDetailModal({ id, story, isOpen, onClose
           className="h-auto w-full object-cover"
           style={{ aspectRatio: `${story.width} / ${story.height}` }}
         />
-        <h2 id={titleId} className="heading-large mt-[11px]">{story.name}</h2>
-        <div className="body-large mt-[5px]">
+        <h2 id={titleId} className="heading-medium mt-[11px]">{story.name}</h2>
+        <div className="body-small mt-[5px]">
           <p># {story.introduction}</p>
           <p>{story.content}</p>
         </div>

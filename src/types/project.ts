@@ -14,6 +14,8 @@ export type Project = {
   teamName: string;
   teamImage: string;
   members: ProjectMember[];
+  serviceUrl?: string;
+  githubUrl?: string;
 };
 
 export type ProjectTeam = Pick<Project, "id" | "teamName">;

@@ -42,6 +42,20 @@ export default function ProjectDetailPage() {
 
       <ContentSection headingId="project-introduction" title="프로젝트 소개" className="mt-[52px]">
         <p className="body-small whitespace-pre-line">{project.introduction}</p>
+        {(project.serviceUrl || project.githubUrl) && (
+          <nav aria-label="프로젝트 외부 링크" className="body-small flex flex-wrap gap-x-4 gap-y-2 text-navy">
+            {project.serviceUrl && (
+              <a href={project.serviceUrl} target="_blank" rel="noopener noreferrer" aria-label="서비스 바로가기 (새 탭)" className="rounded-sm underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">
+                서비스 바로가기
+              </a>
+            )}
+            {project.githubUrl && (
+              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub (새 탭)" className="rounded-sm underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">
+                GitHub
+              </a>
+            )}
+          </nav>
+        )}
       </ContentSection>
 
       <ContentSection headingId="project-demo" title="현장 시연 기능" className="mt-9">
@@ -66,7 +80,7 @@ export default function ProjectDetailPage() {
             loading="lazy"
             className="size-[120px] shrink-0 rounded-[6px] object-cover"
           />
-          <div className="flex min-w-0 flex-col gap-1.5">
+          <div className="flex min-w-0 flex-col gap-1.5 [overflow-wrap:anywhere]">
             <h3 className="body-medium font-bold">{project.teamName}</h3>
             <ul className="body-small flex flex-col gap-1.5">
               {project.members.map(({ name, roles }) => (

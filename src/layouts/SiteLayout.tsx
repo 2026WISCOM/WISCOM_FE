@@ -14,12 +14,6 @@ const DARK_NAVBAR_ROUTES: readonly string[] = [
   ROUTES.participants,
 ];
 
-const CONTENT_HEIGHT_ROUTES: readonly string[] = [
-  ROUTES.exhibition,
-  ROUTES.directions,
-  ROUTES.neverEndingStory,
-];
-
 export default function SiteLayout() {
   const contentRef = useRef<HTMLDivElement>(null);
   const { key, pathname } = useLocation();
@@ -27,7 +21,6 @@ export default function SiteLayout() {
   const isExhibitionPage = pathname === ROUTES.exhibition;
   const isProjectDetailPage = useMatch(ROUTES.projectDetail) !== null;
   const hasDarkBackground = DARK_NAVBAR_ROUTES.includes(pathname);
-  const hasContentHeight = isProjectDetailPage || CONTENT_HEIGHT_ROUTES.includes(pathname);
   const showsScrollToTop = pathname === ROUTES.projects || pathname === ROUTES.neverEndingStory;
 
   function handleScrollToTop() {
@@ -42,7 +35,7 @@ export default function SiteLayout() {
       <div className="app-frame">
         <Navbar variant={hasDarkBackground ? "white" : "navy"} />
         <div ref={contentRef} key={key} className={cn("app-content", isExhibitionPage && "bg-deep-navy", isProjectDetailPage && "bg-page")}>
-          <main className={hasContentHeight ? "grid" : "grid min-h-full"}>
+          <main className={isHomePage || pathname === ROUTES.splash ? "grid min-h-full" : "grid"}>
             <Outlet />
           </main>
           {!isHomePage && <Footer />}

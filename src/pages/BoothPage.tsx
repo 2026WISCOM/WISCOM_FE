@@ -1,4 +1,5 @@
-import { generatePath, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { generatePath, Link, useLocation, useSearchParams } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 import { PROJECTS } from "../data/projects";
 import BoothFloorPlan from "./booths/components/BoothFloorPlan";
@@ -11,13 +12,34 @@ const LEGEND_ITEMS = [
 ] as const;
 
 const EXHIBITION_SPACES = [
-  { id: "indoor", title: "내부 전시 공간", color: "navy", studios: [6, 5, 4, 3] },
-  { id: "outdoor", title: "외부 전시 공간", color: "pink", studios: [2, 1, 10] },
+  { id: "indoor", title: "내부 전시 공간", color: "navy", studios: [3, 4, 5, 6] },
+  { id: "outdoor", title: "외부 전시 공간", color: "pink", studios: [1, 2, 10] },
 ] as const;
 
 export default function BoothPage() {
+  const [searchParams] = useSearchParams();
+  const activeStudio = searchParams.get("studio");
+  const { state } = useLocation();
+  const [isTooltipDismissed, setIsTooltipDismissed] = useState(false);
+  const entryProject = PROJECTS.find(
+    (project) => project.id === state?.boothProjectId && String(project.studioNumber) === activeStudio,
+  );
+  const tooltip = entryProject
+    ? { studioNumber: entryProject.studioNumber, text: entryProject.title }
+    : state?.boothGuide === true
+      ? { studioNumber: 5, text: "스튜디오를 눌러 프로젝트를 확인해보세요", isGuide: true }
+      : undefined;
+
+  useEffect(() => {
+    if (!activeStudio || entryProject) return;
+    document.getElementById(`studio-${activeStudio}`)?.scrollIntoView({
+      block: "start",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+    });
+  }, [activeStudio, entryProject]);
+
   return (
-    <div className="bg-page pt-navbar [--page-gap:43px] pb-32">
+    <div className="bg-page pt-navbar pb-footer">
       <h1 className="sr-only">부스배치도</h1>
       <ul aria-label="배치도 범례" className="body-xsmall flex items-center justify-between px-9 text-muted">
         {LEGEND_ITEMS.map(({ label, color }) => (
@@ -35,7 +57,10 @@ export default function BoothPage() {
         ))}
       </ul>
       <div className="mt-[13px]">
-        <BoothFloorPlan />
+        <BoothFloorPlan
+          tooltip={isTooltipDismissed ? undefined : tooltip}
+          onCloseTooltip={() => setIsTooltipDismissed(true)}
+        />
       </div>
 
       <div className="mt-12 flex flex-col gap-[43px]">
@@ -48,7 +73,12 @@ export default function BoothPage() {
 
             <div className="mt-6 flex flex-col gap-8 px-5">
               {studios.map((studioNumber) => (
-                <section key={studioNumber} aria-labelledby={`studio-${studioNumber}-heading`} className="flex flex-col gap-3">
+                <section
+                  key={studioNumber}
+                  id={`studio-${studioNumber}`}
+                  aria-labelledby={`studio-${studioNumber}-heading`}
+                  className="flex scroll-mt-[calc(var(--navbar-top)+var(--navbar-height)+24px)] flex-col gap-3"
+                >
                   <h3
                     id={`studio-${studioNumber}-heading`}
                     className="body-small self-start rounded-full px-[19px] py-0.5 text-on-dark"

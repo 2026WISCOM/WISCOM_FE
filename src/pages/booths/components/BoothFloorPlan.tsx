@@ -3,8 +3,14 @@ import { useSearchParams } from "react-router-dom";
 import { cn } from "../../../utils/cn";
 import { BOOTH_COLORS } from "../constants";
 import { FLOOR_PLAN_BOXES } from "../data/floorPlan";
+import BoothFloorPlanTooltip from "./BoothFloorPlanTooltip";
 
-export default function BoothFloorPlan() {
+type BoothFloorPlanProps = {
+  tooltip?: { studioNumber: number; text: string; isGuide?: boolean };
+  onCloseTooltip: () => void;
+};
+
+export default function BoothFloorPlan({ tooltip, onCloseTooltip }: BoothFloorPlanProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeStudio = searchParams.get("studio");
 
@@ -18,8 +24,8 @@ export default function BoothFloorPlan() {
 
   return (
     <section aria-label="전시장 배치도" className="w-full px-[18px]">
-      <div className="w-full">
-        <div className="relative aspect-[357/557] w-full overflow-hidden rounded-[8px] bg-white [container-type:inline-size]">
+      <div className="relative w-full [container-type:inline-size]">
+        <div className="relative aspect-[357/557] w-full overflow-hidden rounded-[8px] bg-white">
           {FLOOR_PLAN_BOXES.map((box) => {
             const { text, color, left, top, width, height } = box;
             const bounds = { left, top, width, height };
@@ -34,7 +40,12 @@ export default function BoothFloorPlan() {
                 <div
                   aria-hidden="true"
                   className="absolute rounded-[2px]"
-                  style={{ ...bounds, ...colors, background: isActive ? colors.color : colors.background }}
+                  style={{
+                    ...bounds,
+                    ...colors,
+                    background: isActive ? colors.color : colors.background,
+                    boxShadow: isActive ? `0 0 10px 0 ${colors.color}` : "none",
+                  }}
                 />
                 {/* Flex only centers text; every shape and label uses the root's absolute coordinates. */}
                 <Label
@@ -70,6 +81,7 @@ export default function BoothFloorPlan() {
             출입구
           </span>
         </div>
+        {tooltip && <BoothFloorPlanTooltip {...tooltip} onClose={onCloseTooltip} />}
       </div>
     </section>
   );

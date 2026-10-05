@@ -11,7 +11,7 @@ export default function ProjectDetailPage() {
 
   if (!project) {
     return (
-      <section className="bg-page px-5 pt-navbar [--page-gap:43px] pb-32 text-ink">
+      <section className="bg-page px-5 pt-navbar pb-footer text-ink">
         <h1 className="heading-large">프로젝트를 찾을 수 없습니다</h1>
         <Link to={ROUTES.projects} className="body-medium mt-4 inline-block rounded-sm underline focus-visible:outline-2 focus-visible:outline-offset-4">
           프로젝트 목록으로 돌아가기
@@ -25,11 +25,11 @@ export default function ProjectDetailPage() {
   );
 
   return (
-    <article className="bg-page px-5 pt-navbar [--page-gap:43px] pb-32 text-ink break-keep">
+    <article className="bg-page px-5 pt-navbar pb-footer text-ink break-keep">
       <img
         src={project.image}
         alt={`${project.title} 미리보기`}
-        className="h-auto w-full"
+        className="h-auto w-full rounded-[8px]"
       />
 
       <header className="mt-[15px] flex flex-col items-center text-center">

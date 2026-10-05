@@ -7,7 +7,7 @@ const SORTED_PROJECTS = PROJECTS.toSorted((first, second) => compareTeamNames(fi
 
 export default function ProjectsPage() {
   return (
-    <section className="min-h-full bg-page px-5 pt-navbar [--page-gap:21px] pb-16 text-ink">
+    <section className="bg-page px-5 pt-navbar pb-footer text-ink">
       <h1 className="sr-only">프로젝트 목록</h1>
       <ul className="flex flex-col gap-8">
         {SORTED_PROJECTS.map((project) => (

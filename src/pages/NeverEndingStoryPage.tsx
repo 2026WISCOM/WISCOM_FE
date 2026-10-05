@@ -19,7 +19,7 @@ export default function NeverEndingStoryPage() {
   } = useDetailModal<NeverEndingStory>();
 
   return (
-    <section className="dark-gradient-background px-5 pt-navbar [--page-gap:43px] pb-[100px] text-white">
+    <section className="dark-gradient-background px-5 pt-navbar pb-footer text-white">
       <h1 className="sr-only">끝나지 않은 이야기</h1>
       <div className="grid grid-cols-2 items-start gap-[13px]">
         {STORY_COLUMNS.map((stories, column) => (

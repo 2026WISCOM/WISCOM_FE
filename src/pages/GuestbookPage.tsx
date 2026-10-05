@@ -32,7 +32,7 @@ export default function GuestbookPage() {
   }
 
   return (
-    <section ref={pageRef} className="dark-gradient-background min-w-0 w-full pt-navbar pb-footer text-on-dark">
+    <section ref={pageRef} className="min-w-0 w-full pt-navbar pb-footer text-on-dark">
       <h1 className="sr-only">방명록</h1>
       <FilterBar
         items={getGuestbookFilters(teams)}

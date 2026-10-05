@@ -1,7 +1,23 @@
-@utility dark-gradient-background {
-  background-color: #101b2b;
-  background-image:
-    radial-gradient(ellipse at 15% 85%, rgb(66 123 151 / 50%), transparent 60%),
-    radial-gradient(ellipse at 90% 65%, rgb(91 83 142 / 35%), transparent 55%),
-    linear-gradient(160deg, #101b2b, #203951);
+.app-frame--dark {
+  --app-background: var(--color-deep-navy);
+}
+
+/* The frame stays still while .app-content scrolls over its background. */
+.app-frame--poster {
+  background-image: url("../../assets/poster-background.png");
+  background-position: center top;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+.app-frame--dark .app-content {
+  overscroll-behavior-y: none;
+}
+
+@media (width < 640px) {
+  html:has(.app-frame--dark),
+  body:has(.app-frame--dark) {
+    background-color: var(--color-deep-navy);
+    overscroll-behavior-y: none;
+  }
 }

@@ -32,7 +32,7 @@ export default function SiteLayout() {
 
   return (
     <div className="site-shell">
-      <div className="app-frame">
+      <div className={cn("app-frame", hasDarkBackground && "app-frame--dark", hasDarkBackground && !isExhibitionPage && "app-frame--poster")}>
         <Navbar variant={hasDarkBackground ? "white" : "navy"} />
         <div ref={contentRef} key={key} className={cn("app-content", isExhibitionPage && "bg-deep-navy", isProjectDetailPage && "bg-page")}>
           <main className={isHomePage || pathname === ROUTES.splash ? "grid min-h-full" : "grid"}>

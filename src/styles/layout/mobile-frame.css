@@ -17,7 +17,7 @@
 	height: var(--app-frame-height);
 	overflow: clip;
 	border-radius: var(--app-frame-radius);
-	background: #fff;
+	background-color: var(--app-background, #fff);
 }
 
 .app-content {

@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { generatePath, Link, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { generatePath, Link, useLocation, useSearchParams } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 import { PROJECTS } from "../data/projects";
 import BoothFloorPlan from "./booths/components/BoothFloorPlan";
@@ -19,14 +19,24 @@ const EXHIBITION_SPACES = [
 export default function BoothPage() {
   const [searchParams] = useSearchParams();
   const activeStudio = searchParams.get("studio");
+  const { state } = useLocation();
+  const [isTooltipDismissed, setIsTooltipDismissed] = useState(false);
+  const entryProject = PROJECTS.find(
+    (project) => project.id === state?.boothProjectId && String(project.studioNumber) === activeStudio,
+  );
+  const tooltip = entryProject
+    ? { studioNumber: entryProject.studioNumber, text: entryProject.title }
+    : state?.boothGuide === true
+      ? { studioNumber: 5, text: "스튜디오를 눌러 프로젝트를 확인해보세요", isGuide: true }
+      : undefined;
 
   useEffect(() => {
-    if (!activeStudio) return;
+    if (!activeStudio || entryProject) return;
     document.getElementById(`studio-${activeStudio}`)?.scrollIntoView({
       block: "start",
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
     });
-  }, [activeStudio]);
+  }, [activeStudio, entryProject]);
 
   return (
     <div className="bg-page pt-navbar pb-footer">
@@ -47,7 +57,10 @@ export default function BoothPage() {
         ))}
       </ul>
       <div className="mt-[13px]">
-        <BoothFloorPlan />
+        <BoothFloorPlan
+          tooltip={isTooltipDismissed ? undefined : tooltip}
+          onCloseTooltip={() => setIsTooltipDismissed(true)}
+        />
       </div>
 
       <div className="mt-12 flex flex-col gap-[43px]">

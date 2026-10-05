@@ -56,6 +56,7 @@ src/
 ## 전시 정보 수정 위치
 
 팀명·프로젝트명·팀원·스튜디오는 **`src/data/projects.ts`의 `PROJECTS` 한 곳에서 수정**합니다.
+`title`에는 서비스명만, `description`에는 한 줄 소개를 저장합니다. 서비스명 자체에 포함된 콜론(`Re:Mind`, `SAFE:ON`)은 유지합니다.
 제공된 프로젝트명과 팀원 순서를 그대로 저장하며, 배열은 스튜디오 6 → 5 → 4 → 3 → 2 → 1 → 10과 각 스튜디오의 팀 순서로 배치했습니다.
 `project-1`부터 `project-12`까지의 ID는 처음 전달받은 팀 목록 순서에 대응하므로 화면 순서를 바꿔도 변경하지 않습니다.
 
@@ -75,6 +76,17 @@ src/
 - `ContentSection`: 작은 제목과 본문을 가진 전시·프로젝트 안내 섹션.
 - `FilterBar`: 참여자 초성 필터와 방명록 가로 스크롤 필터.
 - `Modal`, `Drawer`: 동일한 모바일 프레임 안에서 열리는 상세 모달과 메뉴.
+- `Tooltip`: 닫기 버튼이 있는 안내 말풍선. `tail`은 꼬리가 붙는 면(`top`, `bottom`, `left`, `right`), `color`는 `navy` 또는 `pink`이며 기본값은 `bottom`·`navy`입니다. 표시 여부와 위치는 사용하는 화면에서 관리합니다.
+
+`tailOffset`으로 꼬리의 위치를 조정할 수 있습니다. 위·아래 꼬리는 왼쪽 기준, 좌·우 꼬리는 위쪽 기준이며 기본값은 중앙입니다.
+
+```tsx
+{isTooltipOpen && (
+  <Tooltip tail="bottom" color="navy" onClose={() => setIsTooltipOpen(false)}>
+    스튜디오를 선택해주세요
+  </Tooltip>
+)}
+```
 
 `useModalDialog`는 네이티브 dialog 열기·닫기와 스크롤 잠금을 담당합니다.
 `useDetailModal`은 상세 대상과 열림 상태를 함께 관리하며, 닫힘 애니메이션 동안 선택 데이터를 유지합니다.
@@ -132,6 +144,12 @@ src/
 부스 배치도 좌표는 `pages/booths/data/floorPlan.ts`에서 수정합니다.
 기준 비율 `357 / 557`과 퍼센트 좌표를 유지하며, 도형과 라벨을 DOM으로 배치합니다.
 
+홈·메뉴의 부스배치도 링크는 라우터 state의 `boothGuide`로 스튜디오 5 가이드를 표시합니다.
+참여자 상세의 부스 위치 링크는 `boothProjectId`를 전달하며, `PROJECTS`에서 해당 프로젝트명을 가져와 선택된 스튜디오 옆에 표시합니다.
+프로젝트명 안내로 진입할 때는 배치도를 유지하고, 스튜디오를 클릭하면 기존처럼 해당 목록으로 이동합니다.
+툴팁 위치는 `pages/booths/components/BoothFloorPlanTooltip.tsx`에서 관리하며 배치도 좌표를 참조합니다.
+5·6번은 아래, 3·4·2·1번은 왼쪽, 10번은 오른쪽에 두고 꼬리 끝과 스튜디오 사이에 약 8px을 남깁니다.
+
 ## 스타일
 
 색상은 `index.css`의 Tailwind `@theme` 토큰을 사용합니다.
@@ -155,3 +173,6 @@ node scripts/check-guestbook-dropdown.mjs http://127.0.0.1:5178 http://127.0.0.1
 ```
 
 검사 스크립트는 연결된 브라우저 페이지를 방명록으로 이동시킵니다.
+
+`node scripts/check-booth-tooltips.mjs`는 동일한 Vite·Chrome 환경에서 홈·메뉴·참여자 상세 진입과 12개 프로젝트 안내를 검사합니다.
+320px·390px·데스크톱 화면에서 스튜디오와 툴팁의 겹침, 꼬리 방향과 간격, 닫기, 목록 스크롤을 확인합니다.

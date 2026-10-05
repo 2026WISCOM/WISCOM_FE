@@ -43,6 +43,7 @@ export default function ParticipantDetailModal({ id, participant, isOpen, onClos
               pathname: ROUTES.booths,
               search: createSearchParams({ studio: String(participant.studioNumber) }).toString(),
             }}
+            state={{ boothProjectId: participant.projectId }}
             onClick={onClose}
             className="body-medium text-on-dark"
           >

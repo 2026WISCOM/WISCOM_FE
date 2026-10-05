@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { NAVIGATION_ITEMS } from "../../constants/routes";
+import { NAVIGATION_ITEMS, ROUTES } from "../../constants/routes";
 import { cn } from "../../utils/cn";
 import Drawer from "../ui/Drawer";
 
@@ -18,6 +18,7 @@ export default function NavigationMenu(props: NavigationMenuProps) {
             <li key={path}>
               <NavLink
                 to={path}
+                state={path === ROUTES.booths ? { boothGuide: true } : undefined}
                 onClick={props.onClose}
                 className={({ isActive }) =>
                   cn(

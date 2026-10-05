@@ -1,25 +1,25 @@
 .navbar {
-  inset-inline: var(--navbar-edge);
-  top: var(--navbar-top);
-  color: var(--color-navy);
+	inset-inline: var(--navbar-edge);
+	top: var(--navbar-top);
+	color: var(--color-navy);
 }
 
 .navbar-bar {
-  height: var(--navbar-height);
-  padding-inline: var(--navbar-padding);
+	height: var(--navbar-height);
+	padding-inline: var(--navbar-padding);
 }
 
 .navigation-menu-header {
-  height: var(--navbar-height);
-  margin-top: var(--navbar-top);
-  padding-top: 0;
-  padding-right: calc(var(--navbar-edge) + var(--navbar-padding) + 1px);
+	height: var(--navbar-height);
+	margin-top: var(--navbar-top);
+	padding-top: 0;
+	padding-right: calc(var(--navbar-edge) + var(--navbar-padding) + 1px);
 }
 
 .navbar[data-variant="white"] {
-  --glass-background: rgb(25 39 54 / 28%);
-  --glass-fallback-background: rgb(25 39 54 / 72%);
-  --glass-solid-background: #192736;
-  --glass-border: rgb(255 255 255 / 30%);
-  color: #fff;
+	--glass-background: rgb(25 39 54 / 18%);
+	--glass-fallback-background: rgb(25 39 54 / 60%);
+	--glass-solid-background: #192736;
+	--glass-border: rgb(255 255 255 / 30%);
+	color: #fff;
 }

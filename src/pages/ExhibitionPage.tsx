@@ -1,3 +1,4 @@
+import posterImage from "../assets/poster.png";
 import ContentSection from "../components/ui/ContentSection";
 
 const EXHIBITION_DAYS = ["DAY 1", "DAY 2"] as const;
@@ -15,14 +16,11 @@ export default function ExhibitionPage() {
 		<section className="flex flex-col gap-[30px] bg-deep-navy px-5 pt-navbar pb-footer text-on-dark">
 			<h1 className="sr-only">전시 소개</h1>
 
-			{/* 실제 전시 포스터가 준비되면 이미지로 교체합니다. */}
-			<div
-				role="img"
-				aria-label="전시 포스터 준비 중"
-				className="body-small flex h-[500px] w-full shrink-0 items-center justify-center bg-white/10"
-			>
-				포스터 이미지
-			</div>
+			<img
+				src={posterImage}
+				alt="2026 WISCOM 졸업 전시 포스터"
+				className="h-auto w-full shrink-0"
+			/>
 
 			<ul aria-label="전시 일정" className="flex flex-col gap-1.5">
 				{EXHIBITION_DAYS.map((day) => (

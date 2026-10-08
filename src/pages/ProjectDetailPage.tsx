@@ -28,6 +28,7 @@ export default function ProjectDetailPage() {
     <article className="bg-page px-5 pt-navbar pb-footer text-ink break-keep">
       <img
         src={project.image}
+        fetchPriority="high"
         alt={`${project.title} 미리보기`}
         className="h-auto w-full rounded-[8px]"
       />
@@ -78,6 +79,7 @@ export default function ProjectDetailPage() {
             width={120}
             height={120}
             loading="lazy"
+            decoding="async"
             className="size-[120px] shrink-0 rounded-[6px] object-cover"
           />
           <div className="flex min-w-0 flex-col gap-1.5 [overflow-wrap:anywhere]">

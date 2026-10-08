@@ -8,6 +8,7 @@ export type Project = {
   title: string;
   description: string;
   image: string;
+  thumbnail: string;
   studioNumber: number;
   introduction: string;
   demoFeatures: string[];

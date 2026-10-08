@@ -21,15 +21,32 @@
 }
 
 .app-content {
+	display: flex;
+	flex-direction: column;
 	height: 100%;
 	overflow-x: hidden;
 	overflow-y: auto;
-	overscroll-behavior-y: contain;
+	overscroll-behavior-y: none;
+}
+
+.app-content > main {
+	flex: 1 0 auto;
+}
+
+.app-content > .site-footer {
+	flex-shrink: 0;
+}
+
+@media (width < 640px) {
+	html,
+	body {
+		overscroll-behavior-y: none;
+	}
 }
 
 @media (min-width: 640px) {
 	.site-shell {
-		background: var(--color-deep-navy) url("../../assets/desktop-backgorund.png") center / cover no-repeat;
+		background: var(--color-deep-navy) url("../../assets/optimized/desktop-backgorund.webp") center / cover no-repeat;
 	}
 
 	:root {

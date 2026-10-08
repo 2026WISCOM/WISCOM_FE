@@ -21,10 +21,20 @@
 }
 
 .app-content {
+	display: flex;
+	flex-direction: column;
 	height: 100%;
 	overflow-x: hidden;
 	overflow-y: auto;
 	overscroll-behavior-y: contain;
+}
+
+.app-content > main {
+	flex: 1 0 auto;
+}
+
+.app-content > .site-footer {
+	flex-shrink: 0;
 }
 
 @media (min-width: 640px) {

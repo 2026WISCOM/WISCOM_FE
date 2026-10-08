@@ -1,4 +1,4 @@
-import buildingEntranceImage from "../assets/building-entrance.gif";
+import buildingEntranceImage from "../assets/optimized/building-entrance.webp";
 import ContentSection from "../components/ui/ContentSection";
 import GlassLink from "../components/ui/GlassLink";
 
@@ -35,6 +35,9 @@ export default function DirectionsPage() {
 
 			<img
 				src={buildingEntranceImage}
+				width={640}
+				height={466}
+				fetchPriority="high"
 				alt="서울창업허브 창동 건물 입구"
 				className="mt-[17px] h-[284px] w-full rounded-lg object-cover"
 			/>

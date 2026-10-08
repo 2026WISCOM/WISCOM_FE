@@ -4,7 +4,7 @@
 
 /* The frame stays still while .app-content scrolls over its background. */
 .app-frame--poster {
-  background-image: url("../../assets/poster-background.png");
+  background-image: url("../../assets/optimized/poster-background.webp");
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;

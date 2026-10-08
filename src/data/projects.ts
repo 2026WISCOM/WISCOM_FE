@@ -1,27 +1,39 @@
-import project10Image from "../assets/team/BE1_project.png";
-import project10TeamImage from "../assets/team/BE1_team.png";
-import project4Image from "../assets/team/아자쓰_project.png";
-import project4TeamImage from "../assets/team/아자쓰_team.jpg";
-import project11Image from "../assets/team/Axis_project.png";
-import project11TeamImage from "../assets/team/Axis_team.png";
-import project3Image from "../assets/team/2233_project.png";
-import project3TeamImage from "../assets/team/2233_team.jpg";
-import project12Image from "../assets/team/가디언즈_project.png";
-import project12TeamImage from "../assets/team/가디언즈_team.png";
-import project7Image from "../assets/team/exit(0)_project.jpg";
-import project7TeamImage from "../assets/team/exit(0)_team.png";
-import project5Image from "../assets/team/공일공일_project.png";
-import project5TeamImage from "../assets/team/공일공일_team.jpeg";
-import project9Image from "../assets/team/404_project.png";
-import project9TeamImage from "../assets/team/404_team.png";
-import project1Image from "../assets/team/데드락_project.png";
-import project1TeamImage from "../assets/team/데드락_team.jpg";
-import project6Image from "../assets/team/PolyStack_project.png";
-import project6TeamImage from "../assets/team/PolyStack_team.jpg";
-import project2Image from "../assets/team/Quadcore_project.png";
-import project2TeamImage from "../assets/team/Quadcore_team.png";
-import project8Image from "../assets/team/MOODE_project.jpg";
-import project8TeamImage from "../assets/team/MOODE_team.png";
+import project10Image from "../assets/optimized/team/BE1_project.webp";
+import project10Thumbnail from "../assets/optimized/team/BE1_project_thumb.webp";
+import project10TeamImage from "../assets/optimized/team/BE1_team.webp";
+import project4Image from "../assets/optimized/team/아자쓰_project.webp";
+import project4Thumbnail from "../assets/optimized/team/아자쓰_project_thumb.webp";
+import project4TeamImage from "../assets/optimized/team/아자쓰_team.webp";
+import project11Image from "../assets/optimized/team/Axis_project.webp";
+import project11Thumbnail from "../assets/optimized/team/Axis_project_thumb.webp";
+import project11TeamImage from "../assets/optimized/team/Axis_team.webp";
+import project3Image from "../assets/optimized/team/2233_project.webp";
+import project3Thumbnail from "../assets/optimized/team/2233_project_thumb.webp";
+import project3TeamImage from "../assets/optimized/team/2233_team.webp";
+import project12Image from "../assets/optimized/team/가디언즈_project.webp";
+import project12Thumbnail from "../assets/optimized/team/가디언즈_project_thumb.webp";
+import project12TeamImage from "../assets/optimized/team/가디언즈_team.webp";
+import project7Image from "../assets/optimized/team/exit(0)_project.webp";
+import project7Thumbnail from "../assets/optimized/team/exit(0)_project_thumb.webp";
+import project7TeamImage from "../assets/optimized/team/exit(0)_team.webp";
+import project5Image from "../assets/optimized/team/공일공일_project.webp";
+import project5Thumbnail from "../assets/optimized/team/공일공일_project_thumb.webp";
+import project5TeamImage from "../assets/optimized/team/공일공일_team.webp";
+import project9Image from "../assets/optimized/team/404_project.webp";
+import project9Thumbnail from "../assets/optimized/team/404_project_thumb.webp";
+import project9TeamImage from "../assets/optimized/team/404_team.webp";
+import project1Image from "../assets/optimized/team/데드락_project.webp";
+import project1Thumbnail from "../assets/optimized/team/데드락_project_thumb.webp";
+import project1TeamImage from "../assets/optimized/team/데드락_team.webp";
+import project6Image from "../assets/optimized/team/PolyStack_project.webp";
+import project6Thumbnail from "../assets/optimized/team/PolyStack_project_thumb.webp";
+import project6TeamImage from "../assets/optimized/team/PolyStack_team.webp";
+import project2Image from "../assets/optimized/team/Quadcore_project.webp";
+import project2Thumbnail from "../assets/optimized/team/Quadcore_project_thumb.webp";
+import project2TeamImage from "../assets/optimized/team/Quadcore_team.webp";
+import project8Image from "../assets/optimized/team/MOODE_project.webp";
+import project8Thumbnail from "../assets/optimized/team/MOODE_project_thumb.webp";
+import project8TeamImage from "../assets/optimized/team/MOODE_team.webp";
 import type { Project } from "../types/project";
 
 // Submitted exhibition content. Keep project IDs, studio assignments and member order stable.
@@ -33,6 +45,7 @@ export const PROJECTS: Project[] = [
 		description: "사용자 맞춤형 네일 팁 디자인 생성 및 3D 프린팅 시스템",
 		studioNumber: 6,
 		image: project10Image,
+		thumbnail: project10Thumbnail,
 		teamImage: project10TeamImage,
 		introduction:
 			"Naily는 손가락 사진으로 손톱을 실측하고 피부톤을 분석합니다. 이를 바탕으로 3D 프린팅 네일 팁 제작, AI 맞춤형 디자인 생성, AR 실시간 미리보기까지 하나의 파이프라인으로 제공하는 올인원 네일아트 서비스입니다.",
@@ -56,6 +69,7 @@ export const PROJECTS: Project[] = [
 			"AI 기반 실시간 러닝 패턴 분석을 통한 자세 교정 웨어러블 시스템",
 		studioNumber: 5,
 		image: project4Image,
+		thumbnail: project4Thumbnail,
 		teamImage: project4TeamImage,
 		introduction:
 			"TTWIM은 발등에 부착한 센서로 러닝 자세를 실시간 분석하는 서비스입니다. 잘못된 러닝 자세가 감지되면 AI가 음성으로 교정 방법을 안내하고, 운동 후에는 개인별 러닝 리포트와 AI 챗봇을 제공합니다.",
@@ -78,6 +92,7 @@ export const PROJECTS: Project[] = [
 		description: "AI HAPTIC RUNNING BAND",
 		studioNumber: 4,
 		image: project11Image,
+		thumbnail: project11Thumbnail,
 		teamImage: project11TeamImage,
 		introduction:
 			"러닝 중 화면 확인 없이도 경로 안내와 운동 피드백을 받을 수 있는 햅틱 기반 스마트 러닝 밴드와 연동 앱. BLE 통신으로 좌·우 손목 밴드와 스마트폰을 연결하여 방향, 경로 이탈, 페이스 조절 정보를 진동으로 전달하며, AI 기반 페이스 조절 및 GPS 아트 기능 등을 함께 제공.",
@@ -104,6 +119,7 @@ export const PROJECTS: Project[] = [
 		description: "가정용 AI 구강 모니터링 디바이스",
 		studioNumber: 4,
 		image: project3Image,
+		thumbnail: project3Thumbnail,
 		teamImage: project3TeamImage,
 		introduction:
 			"꼼꼼히 양치해도 놓치는 곳이 걱정되지 않으신가요? HabiTooth는 집에서 촬영한 구강 이미지를 AI로 분석해 놓친 곳을 한눈에 보여주고, 치과에 가지 않아도 스스로 구강 상태를 관리할 수 있도록 돕습니다.",
@@ -129,6 +145,7 @@ export const PROJECTS: Project[] = [
 		description: "멀티 센싱 기반 발 상태 분석 및 변화 관리 시스템",
 		studioNumber: 3,
 		image: project12Image,
+		thumbnail: project12Thumbnail,
 		teamImage: project12TeamImage,
 		introduction:
 			"FeetFit은 멀티 센서와 AI로 발의 외형·피부·하중 상태를 종합 분석하는 발 관리 서비스이다. 측정 결과를 시각화하고 변화를 추적하며, 개인별 관리 정보와 신발 추천을 제공해 일상 속 지속적인 발 관리를 돕는다.",
@@ -153,6 +170,7 @@ export const PROJECTS: Project[] = [
 		description: "AI기반 정밀 피부 진단과 IoT 스캐너 연동 솔루션",
 		studioNumber: 3,
 		image: project7Image,
+		thumbnail: project7Thumbnail,
 		teamImage: project7TeamImage,
 		introduction:
 			"IoT 스캐너로 피부를 촬영·측정하고 서버 AI(ResNet-50 멀티태스크)가 수분·탄력·모공 등 12개 지표를 정밀 추정하여, 웹에서 등급별 리포트와 피부/날씨 맞춤 화장품, 케어루틴을 추천하는 End-to-End 피부 분석 서비스입니다.",
@@ -178,6 +196,7 @@ export const PROJECTS: Project[] = [
 		description: "AI 기반 멀티모달 분석을 활용한 맞춤형 면접 코칭 플랫폼",
 		studioNumber: 2,
 		image: project5Image,
+		thumbnail: project5Thumbnail,
 		teamImage: project5TeamImage,
 		introduction:
 			"Interview-Fit은 다양한 면접 환경에서 반복적으로 연습할 수 있도록 지원하는 AI 면접 코칭 서비스입니다. 답변 내용뿐 아니라 발화 속도, 습관어, 시선, 눈 깜빡임, 자세 등을 종합 분석합니다. 분석 결과를 바탕으로 STAR 평가, 강점·개선점, 모범 답안 및 맞춤형 피드백을 제공합니다.",
@@ -203,6 +222,7 @@ export const PROJECTS: Project[] = [
 			"보유 식재료와 사용자 정보를 활용한 개인 맞춤형 레시피 추천 서비스",
 		studioNumber: 2,
 		image: project9Image,
+		thumbnail: project9Thumbnail,
 		teamImage: project9TeamImage,
 		introduction:
 			"밀메이트(Meal Mate)는 사용자의 보유 식재료와 건강정보·취향을 분석해 맞춤형 레시피를 제안하는 AI 서비스입니다. 식약처 공공데이터와 LLM·RAG를 활용해 보유 재료와 사용자 조건을 종합적으로 반영하고, 실제 조리에 활용 가능한 레시피를 제공합니다.",
@@ -226,6 +246,7 @@ export const PROJECTS: Project[] = [
 		description: "AI·IoT 기반 실시간 화재 훈련 대피 관리 플랫폼",
 		studioNumber: 1,
 		image: project1Image,
+		thumbnail: project1Thumbnail,
 		teamImage: project1TeamImage,
 		introduction:
 			"SafeRoute는 건물 도면을 AI로 분석해 훈련 경로를 자동 생성하고, IP 카메라로 혼잡·병목을 실시간 감지해 경로를 재계산, IoT 유도등으로 안내하는 화재 대피 훈련 관리 플랫폼입니다. 훈련 데이터를 자동 분석해 정량 평가 보고서까지 제공해 사후 평가 중심이던 기존 화재 대피 훈련의 한계를 극복합니다.",
@@ -255,6 +276,7 @@ export const PROJECTS: Project[] = [
 		description: "스마트 글러브를 활용한 노인 인지 훈련 어플리케이션",
 		studioNumber: 1,
 		image: project6Image,
+		thumbnail: project6Thumbnail,
 		teamImage: project6TeamImage,
 		introduction:
 			"ReMind는 노년층이 회상 질문에 답변하고 손동작 인지 훈련 게임을 수행하는 서비스입니다. 답변 텍스트의 단어 및 문장 수·감정 지표·게임 성공 횟수를 분석해 월간 인지 변화 리포트로 제공하며, 사용자와 보호자가 활동 기록과 변화 추이를 살펴볼 수 있도록 돕습니다.",
@@ -278,6 +300,7 @@ export const PROJECTS: Project[] = [
 		description: "압력센서 기반 자세 교정 및 몰입도 관리 솔루션",
 		studioNumber: 1,
 		image: project2Image,
+		thumbnail: project2Thumbnail,
 		teamImage: project2TeamImage,
 		introduction:
 			"무너진 자세는 스스로 알아차리기 어렵고, 집중력 저하는 그 뒤에 숨어 있습니다. 방석·등받이 64채널 압력 센서로 착석 압력을 실시간으로 정밀하게 수집해 AI가 분석하고, 개인별 캘리브레이션으로 누구에게나 맞춤화된 판별을 구현한 지능형 자세 케어 시스템, SeatCare입니다.",
@@ -301,6 +324,7 @@ export const PROJECTS: Project[] = [
 		description: "멀티모달 AI 기반 사고·위험 조기 감지 스마트 헬멧",
 		studioNumber: 10,
 		image: project8Image,
+		thumbnail: project8Thumbnail,
 		teamImage: project8TeamImage,
 		introduction:
 			"IMU·심박 센서로 낙상과 신체 이상을 즉시 감지하고, 카메라 AI가 물웅덩이·장애물 등 외부 위험을 사전 경고합니다. 사고 영상은 자동 기록되고 LLM이 보고서를 작성해 관리자 대시보드로 제공합니다.",

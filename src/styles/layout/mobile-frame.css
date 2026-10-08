@@ -46,7 +46,7 @@
 
 @media (min-width: 640px) {
 	.site-shell {
-		background: var(--color-deep-navy) url("../../assets/desktop-backgorund.png") center / cover no-repeat;
+		background: var(--color-deep-navy) url("../../assets/optimized/desktop-backgorund.webp") center / cover no-repeat;
 	}
 
 	:root {

@@ -1,4 +1,4 @@
-import posterImage from "../assets/poster.png";
+import posterImage from "../assets/optimized/poster.webp";
 import ContentSection from "../components/ui/ContentSection";
 
 const EXHIBITION_DAYS = [
@@ -20,6 +20,9 @@ export default function ExhibitionPage() {
 
 			<img
 				src={posterImage}
+				width={1442}
+				height={2007}
+				fetchPriority="high"
 				alt="2026 WISCOM 졸업 전시 포스터"
 				className="h-auto w-full shrink-0"
 			/>

@@ -165,8 +165,18 @@ src/
 배치도처럼 동적인 퍼센트 좌표가 필요한 경우에는 `style`을 사용합니다.
 
 홈·참여자·방명록·끝나지 않은 이야기의 배경은 `styles/utilities/background.css`에서 관리합니다.
-스크롤 영역 바깥의 `.app-frame`에 `#0E2540`과 `poster-background.png`를 `100% auto` 크기로 적용해 이미지를 고정합니다.
+스크롤 영역 바깥의 `.app-frame`에 `#0E2540`과 `optimized/poster-background.webp`를 `100% auto` 크기로 적용해 이미지를 고정합니다.
 모바일 스크롤 경계의 바탕색도 남색으로 맞추며, 전시소개는 이미지 없이 기존 단색 배경을 사용합니다.
+
+## 이미지 관리
+
+`src/assets/`의 원본은 보관하고, 화면에서는 `src/assets/optimized/`의 WebP 파일을 사용합니다.
+프로젝트 목록은 480px 썸네일, 상세·참여자 모달은 최대 1200px 이미지, 팀 사진은 최대 480px 이미지를 사용합니다.
+데스크톱 배경은 최대 2560px이며, 포스터와 모바일 배경은 원본 해상도를 유지합니다. 장소 이미지는 움직임과 재생 시간을 유지한 animated WebP입니다.
+
+원본 교체 후 Python과 [Pillow](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#webp)가 설치된 환경에서 `python scripts/optimize-images.py`를 실행하고 경량본도 함께 커밋합니다.
+스크립트는 출력 파일의 디코딩·크기·프레임 수·재생 시간을 검사합니다. 새 팀을 추가하면 `data/projects.ts`에서 `image`, `thumbnail`, `teamImage`를 연결합니다.
+일반 개발·배포 빌드에는 Python이 필요하지 않습니다. 원본 파일은 앱에서 참조하지 않으므로 Vite 배포 결과에 포함되지 않습니다.
 
 ## 브라우저 확인
 

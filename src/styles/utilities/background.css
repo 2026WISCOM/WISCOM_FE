@@ -10,14 +10,9 @@
   background-repeat: no-repeat;
 }
 
-.app-frame--dark .app-content {
-  overscroll-behavior-y: none;
-}
-
 @media (width < 640px) {
   html:has(.app-frame--dark),
   body:has(.app-frame--dark) {
     background-color: var(--color-deep-navy);
-    overscroll-behavior-y: none;
   }
 }

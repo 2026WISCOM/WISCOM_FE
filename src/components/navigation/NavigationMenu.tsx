@@ -12,7 +12,7 @@ type NavigationMenuProps = {
 export default function NavigationMenu(props: NavigationMenuProps) {
   return (
     <Drawer {...props} title="주요 메뉴" headerClassName="navigation-menu-header">
-      <nav aria-label="주요 메뉴" className="my-auto px-6 py-10">
+      <nav aria-label="주요 메뉴" className="my-auto px-6 py-10 text-white">
         <ul className="flex flex-col gap-3">
           {NAVIGATION_ITEMS.map(({ label, path }) => (
             <li key={path}>

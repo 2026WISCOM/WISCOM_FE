@@ -56,6 +56,7 @@ def main():
         (ASSETS / "desktop-backgorund.png", 2560, 85),
         (ASSETS / "poster-background.png", 786, 85),
         (ASSETS / "poster.png", 1442, 90),
+        (ASSETS / "wiscom.png", 768, 90),
         (ASSETS / "building-entrance.gif", 640, 85),
     ]
     sources.extend(

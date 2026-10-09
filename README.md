@@ -180,6 +180,7 @@ src/
 `src/assets/`의 원본은 보관하고, 화면에서는 `src/assets/optimized/`의 WebP 파일을 사용합니다.
 프로젝트 목록은 480px 썸네일, 상세·참여자 모달은 최대 1200px 이미지, 팀 사진은 최대 480px 이미지를 사용합니다.
 데스크톱 배경은 최대 2560px이며, 포스터와 모바일 배경은 원본 해상도를 유지합니다. 장소 이미지는 움직임과 재생 시간을 유지한 animated WebP입니다.
+메인 로고는 `wiscom.png`에서 생성한 `optimized/wiscom.webp`를 사용하며, 768px 원본 너비와 투명 배경을 유지합니다.
 
 원본 교체 후 Python과 [Pillow](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#webp)가 설치된 환경에서 `python scripts/optimize-images.py`를 실행하고 경량본도 함께 커밋합니다.
 스크립트는 출력 파일의 디코딩·크기·프레임 수·재생 시간을 검사합니다. 새 팀을 추가하면 `data/projects.ts`에서 `image`, `thumbnail`, `teamImage`를 연결합니다.

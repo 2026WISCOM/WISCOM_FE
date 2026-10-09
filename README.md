@@ -146,6 +146,10 @@ src/
 참가자 모달의 소감 링크는 라우터 state의 `storyParticipantId`로 해당 이야기 상세를 바로 엽니다.
 이야기 목업은 `PARTICIPANTS`에서 파생하며, 동명이인도 이름 대신 `participantId`로 구분합니다. 실제 소감 제출 전에는 준비 중 문구를 표시합니다.
 
+소감 페이지는 한국시간 2026년 10월 29일 10:00부터 공개됩니다. 공개 전에는 블러 처리한 임시 카드와 안내만 렌더링하고, 참가자 바로가기도 상세를 열지 않습니다.
+공개 시각은 `pages/never-ending-story/hooks/useStoriesReleased.ts`의 `STORIES_RELEASE_AT`에서 변경합니다. 열린 페이지와 백그라운드 탭 복귀 시 자동으로 다시 확인합니다.
+이 설정은 방문자 기기 시각을 기준으로 하는 화면 공개 제어입니다. 추후 비공개 소감을 API로 제공한다면 서버에서도 공개 시각 전 응답을 제한해야 합니다.
+
 부스 배치도 좌표는 `pages/booths/data/floorPlan.ts`에서 수정합니다.
 기준 비율 `357 / 557`과 퍼센트 좌표를 유지하며, 도형과 라벨을 DOM으로 배치합니다.
 
@@ -194,7 +198,7 @@ node scripts/check-guestbook-dropdown.mjs http://127.0.0.1:5178 http://127.0.0.1
 
 검사 스크립트는 연결된 브라우저 페이지를 방명록으로 이동시킵니다.
 
-`node scripts/check-story-links.mjs`는 같은 Vite·Chrome 환경에서 참가자별 소감 연결, 동명이인 구분, 20px 간격과 글자 스타일, 상세 열기·닫기를 검사합니다.
+`node scripts/check-story-links.mjs`는 같은 Vite·Chrome 환경에서 한국시간 공개 경계와 자동 전환, 공개 전 바로가기 차단, 참가자별 소감 연결, 동명이인 구분, 20px 간격과 글자 스타일, 상세 열기·닫기를 검사합니다. 테스트 중 브라우저 시각을 고정하며 종료 시 해제합니다.
 
 `node scripts/check-booth-tooltips.mjs`는 동일한 Vite·Chrome 환경에서 홈·메뉴·참여자 상세 진입과 12개 프로젝트 안내를 검사합니다.
 320px·390px·데스크톱 화면에서 스튜디오와 툴팁의 겹침, 꼬리 방향과 간격, 닫기, 목록 스크롤을 확인합니다.

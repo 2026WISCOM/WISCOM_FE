@@ -35,6 +35,7 @@ import project8Image from "../assets/optimized/team/MOODE_project.webp";
 import project8Thumbnail from "../assets/optimized/team/MOODE_project_thumb.webp";
 import project8TeamImage from "../assets/optimized/team/MOODE_team.webp";
 import type { Project } from "../types/project";
+import { compareTeamNames } from "../utils/teamOrder";
 
 // Submitted exhibition content. Keep project IDs, studio assignments and member order stable.
 export const PROJECTS: Project[] = [
@@ -344,3 +345,7 @@ export const PROJECTS: Project[] = [
 		githubUrl: "https://github.com/orgs/moodeProject/repositories",
 	},
 ];
+
+export const PROJECTS_BY_TITLE = PROJECTS.toSorted((first, second) =>
+	compareTeamNames(first.title, second.title),
+);

@@ -6,7 +6,7 @@ import {
 	useSearchParams,
 } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
-import { PROJECTS } from "../data/projects";
+import { PROJECTS, PROJECTS_BY_TITLE } from "../data/projects";
 import BoothFloorPlan from "./booths/components/BoothFloorPlan";
 import { BOOTH_COLORS } from "./booths/constants";
 
@@ -128,7 +128,7 @@ export default function BoothPage() {
 										스튜디오 {studioNumber}
 									</h3>
 									<ul className="body-small flex list-disc flex-col gap-3 pl-5 text-ink">
-										{PROJECTS.filter(
+										{PROJECTS_BY_TITLE.filter(
 											(project) =>
 												project.studioNumber ===
 												studioNumber,

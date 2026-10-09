@@ -1,16 +1,13 @@
 import { generatePath, Link } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
-import { PROJECTS } from "../data/projects";
-import { compareTeamNames } from "../utils/teamOrder";
-
-const SORTED_PROJECTS = PROJECTS.toSorted((first, second) => compareTeamNames(first.teamName, second.teamName));
+import { PROJECTS_BY_TITLE } from "../data/projects";
 
 export default function ProjectsPage() {
   return (
     <section className="bg-page px-5 pt-navbar pb-footer text-ink">
       <h1 className="sr-only">프로젝트 목록</h1>
       <ul className="flex flex-col gap-8">
-        {SORTED_PROJECTS.map((project, index) => (
+        {PROJECTS_BY_TITLE.map((project, index) => (
           <li key={project.id}>
             <Link
               to={generatePath(ROUTES.projectDetail, { projectId: project.id })}

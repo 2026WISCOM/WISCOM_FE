@@ -1,5 +1,7 @@
 import { Fragment } from "react";
 import { createSearchParams, generatePath, Link, useParams } from "react-router-dom";
+import githubLogo from "../assets/github-logo.png";
+import linkIcon from "../assets/link-icon.png";
 import ContentSection from "../components/ui/ContentSection";
 import GlassLink from "../components/ui/GlassLink";
 import { ROUTES } from "../constants/routes";
@@ -41,22 +43,26 @@ export default function ProjectDetailPage() {
         </p>
       </header>
 
-      <ContentSection headingId="project-introduction" title="프로젝트 소개" className="mt-[52px]">
-        <p className="body-small whitespace-pre-line">{project.introduction}</p>
-        {(project.serviceUrl || project.githubUrl) && (
-          <nav aria-label="프로젝트 외부 링크" className="body-small flex flex-wrap gap-x-4 gap-y-2 text-navy">
-            {project.serviceUrl && (
-              <a href={project.serviceUrl} target="_blank" rel="noopener noreferrer" aria-label="서비스 바로가기 (새 탭)" className="rounded-sm underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">
-                서비스 바로가기
+      <ContentSection
+        headingId="project-introduction"
+        title="프로젝트 소개"
+        className="mt-[52px]"
+        headingActions={(project.githubUrl || project.serviceUrl) && (
+          <nav aria-label="프로젝트 외부 링크" className="flex shrink-0 items-center gap-2">
+            {project.githubUrl && (
+              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub (새 탭)" className="flex h-[18px] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4">
+                <img src={githubLogo} alt="" className="h-[18px] w-auto" />
               </a>
             )}
-            {project.githubUrl && (
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub (새 탭)" className="rounded-sm underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">
-                GitHub
+            {project.serviceUrl && (
+              <a href={project.serviceUrl} target="_blank" rel="noopener noreferrer" aria-label="서비스 바로가기 (새 탭)" className="flex h-[18px] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4">
+                <img src={linkIcon} alt="" className="h-[18px] w-auto" />
               </a>
             )}
           </nav>
         )}
+      >
+        <p className="body-small whitespace-pre-line">{project.introduction}</p>
       </ContentSection>
 
       <ContentSection headingId="project-demo" title="현장 시연 기능" className="mt-9">

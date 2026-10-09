@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { createSearchParams, generatePath } from "react-router-dom";
+import { createSearchParams, generatePath, Link } from "react-router-dom";
 import bubbleImage from "../../../assets/bubble.png";
 import GlassLink from "../../../components/ui/GlassLink";
 import Modal from "../../../components/ui/Modal";
@@ -56,6 +56,17 @@ export default function ParticipantDetailModal({ id, participant, isOpen, onClos
           >
             프로젝트 보기
           </GlassLink>
+          <p className="body-xsmall col-span-2 mt-2 text-center">
+            <strong className="font-bold">끝나지 않은 이야기 -</strong>{" "}
+            <Link
+              to={ROUTES.neverEndingStory}
+              state={{ storyParticipantId: participant.id }}
+              onClick={onClose}
+              className="rounded-sm underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              졸업전시회 소감 확인하러 가기
+            </Link>
+          </p>
         </div>
       </div>
     </Modal>

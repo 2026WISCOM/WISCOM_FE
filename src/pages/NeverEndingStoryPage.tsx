@@ -1,4 +1,5 @@
 import { useId } from "react";
+import { useLocation } from "react-router-dom";
 import Button from "../components/ui/Button";
 import { useDetailModal } from "../hooks/useDetailModal";
 import type { NeverEndingStory } from "../types/neverEndingStory";
@@ -11,12 +12,16 @@ const STORY_COLUMNS = [0, 1].map((column) =>
 
 export default function NeverEndingStoryPage() {
   const detailId = useId();
+  const { state } = useLocation();
+  const initialStory = MOCK_NEVER_ENDING_STORIES.find(
+    (story) => story.participantId === state?.storyParticipantId,
+  ) ?? null;
   const {
     selectedItem: selectedStory,
     isOpen: isDetailOpen,
     open: openStory,
     close: closeStory,
-  } = useDetailModal<NeverEndingStory>();
+  } = useDetailModal<NeverEndingStory>(initialStory);
 
   return (
     <section className="px-5 pt-navbar pb-footer text-white">

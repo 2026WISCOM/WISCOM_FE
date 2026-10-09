@@ -143,6 +143,9 @@ src/
 새 API는 `api/`에 요청 함수, `types/`에 응답 타입을 추가하고 필요한 화면의 훅에서 호출합니다.
 페이지와 표시용 컴포넌트에는 요청 코드를 넣지 않습니다.
 
+참가자 모달의 소감 링크는 라우터 state의 `storyParticipantId`로 해당 이야기 상세를 바로 엽니다.
+이야기 목업은 `PARTICIPANTS`에서 파생하며, 동명이인도 이름 대신 `participantId`로 구분합니다. 실제 소감 제출 전에는 준비 중 문구를 표시합니다.
+
 부스 배치도 좌표는 `pages/booths/data/floorPlan.ts`에서 수정합니다.
 기준 비율 `357 / 557`과 퍼센트 좌표를 유지하며, 도형과 라벨을 DOM으로 배치합니다.
 
@@ -190,6 +193,8 @@ node scripts/check-guestbook-dropdown.mjs http://127.0.0.1:5178 http://127.0.0.1
 ```
 
 검사 스크립트는 연결된 브라우저 페이지를 방명록으로 이동시킵니다.
+
+`node scripts/check-story-links.mjs`는 같은 Vite·Chrome 환경에서 참가자별 소감 연결, 동명이인 구분, 20px 간격과 글자 스타일, 상세 열기·닫기를 검사합니다.
 
 `node scripts/check-booth-tooltips.mjs`는 동일한 Vite·Chrome 환경에서 홈·메뉴·참여자 상세 진입과 12개 프로젝트 안내를 검사합니다.
 320px·390px·데스크톱 화면에서 스튜디오와 툴팁의 겹침, 꼬리 방향과 간격, 닫기, 목록 스크롤을 확인합니다.

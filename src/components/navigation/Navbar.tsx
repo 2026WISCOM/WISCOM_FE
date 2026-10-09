@@ -57,7 +57,7 @@ export default function Navbar({ variant = "navy" }: NavbarProps) {
           </svg>
         </IconButton>
       </div>
-      <NavigationMenu id={menuId} isOpen={isOpen} onClose={close} />
+      <NavigationMenu id={menuId} isOpen={isOpen} onClose={close} variant={variant} />
     </header>
   );
 }

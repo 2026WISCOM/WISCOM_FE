@@ -7,12 +7,13 @@ type NavigationMenuProps = {
   id: string;
   isOpen: boolean;
   onClose: () => void;
+  variant: "white" | "navy";
 };
 
-export default function NavigationMenu(props: NavigationMenuProps) {
+export default function NavigationMenu({ variant, ...props }: NavigationMenuProps) {
   return (
     <Drawer {...props} title="주요 메뉴" headerClassName="navigation-menu-header">
-      <nav aria-label="주요 메뉴" className="my-auto px-6 py-10 text-white">
+      <nav aria-label="주요 메뉴" className={cn("my-auto px-6 py-10", variant === "white" ? "text-white" : "text-navy")}>
         <ul className="flex flex-col gap-3">
           {NAVIGATION_ITEMS.map(({ label, path }) => (
             <li key={path}>

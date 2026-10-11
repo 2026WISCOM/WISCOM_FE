@@ -1,5 +1,4 @@
 export const ROUTES = {
-  splash: "/",
   home: "/home",
   participants: "/participants",
   exhibition: "/exhibition",

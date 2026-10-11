@@ -1,5 +1,4 @@
-import { Routes, Route } from "react-router-dom";
-import SplashPage from "./pages/SplashPage";
+import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ParticipantsPage from "./pages/ParticipantsPage";
 import ExhibitionPage from "./pages/ExhibitionPage";
@@ -15,8 +14,8 @@ import { ROUTES } from "./constants/routes";
 export default function App() {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to={ROUTES.home} replace />} />
       <Route element={<SiteLayout />}>
-        <Route path={ROUTES.splash} element={<SplashPage />} />
         <Route path={ROUTES.home} element={<HomePage />} />
         <Route path={ROUTES.participants} element={<ParticipantsPage />} />
         <Route path={ROUTES.exhibition} element={<ExhibitionPage />} />

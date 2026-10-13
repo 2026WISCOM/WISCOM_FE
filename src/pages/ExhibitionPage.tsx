@@ -9,7 +9,7 @@ const EXHIBITION_DAYS = [
 const COMMITTEE = [
 	{ role: "위원장", names: "황민지" },
 	{ role: "부위원장", names: "이채은" },
-	{ role: "기획&디자인", names: "이채은 황민지 장은선" },
+	{ role: "기획&디자인", names: "이채은 장은선 황민지" },
 	{ role: "웹사이트", names: "김미주 김은서" },
 ] as const;
 

@@ -268,7 +268,7 @@ export const PROJECTS: Project[] = [
 			{ name: "최성현", roles: ["BE", "AI", "HW", "Infra"] },
 		],
 		serviceUrl: "https://ds-saferoute.site/",
-		githubUrl: "https://github.com/DS-SafeRoute",
+		githubUrl: "https://github.com/2026-SafeRoute/",
 	},
 	{
 		id: "project-6",

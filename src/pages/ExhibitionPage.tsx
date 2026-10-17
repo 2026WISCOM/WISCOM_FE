@@ -2,8 +2,8 @@ import posterImage from "../assets/optimized/poster.webp";
 import ContentSection from "../components/ui/ContentSection";
 
 const EXHIBITION_DAYS = [
-	{ label: "DAY 1", schedule: "2026. 10. 29. (목) 10:00~18:00" },
-	{ label: "DAY 2", schedule: "2026. 10. 30. (금) 09:30~17:30" },
+	{ label: "DAY 1", schedule: "2026. 10. 29. (목) 10:00~17:30" },
+	{ label: "DAY 2", schedule: "2026. 10. 30. (금) 09:30~16:30" },
 ] as const;
 
 const COMMITTEE = [

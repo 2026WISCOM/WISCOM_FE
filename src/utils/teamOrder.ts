@@ -6,7 +6,7 @@ function getTeamNameGroup(name: string, englishBeforeNumbers: boolean) {
   return 4;
 }
 
-export function compareTeamNames(first: string, second: string, { englishBeforeNumbers = false } = {}) {
+export function compareTeamNames(first: string, second: string, { englishBeforeNumbers = false, numeric = true } = {}) {
   return getTeamNameGroup(first, englishBeforeNumbers) - getTeamNameGroup(second, englishBeforeNumbers)
-    || first.localeCompare(second, "ko", { numeric: true, sensitivity: "base" });
+    || first.localeCompare(second, "ko", { numeric, sensitivity: "base" });
 }

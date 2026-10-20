@@ -64,8 +64,9 @@ const author = 'dialog[open] input[name="author"]';
 const content = 'dialog[open] textarea[name="content"]';
 const isOpen = "!!document.querySelector('dialog[open] [role=\"listbox\"]')";
 const composeTeamLabels = [
-  "모두에게", "가디언즈", "공일공일", "데드락", "아자쓰!", "404", "2233",
+  "모두에게", "가디언즈", "공일공일", "데드락", "아자쓰!",
   "Axis", "BE1", "exit(0)", "MOOD:E", "PolyStack", "Quadcore",
+  "404", "2233",
 ];
 const entries = [
   { id: 101, teamId: "별빛", writer: "관람객 하나", content: "서버에서 받은 첫 응원\n둘째 줄", createdAt: "2026-10-01T10:00:00" },
@@ -77,7 +78,7 @@ const entries = [
 ];
 const teamLabels = [
   "가디언즈", "공일공일", "데드락", "별빛", "새로운 외부 팀", "아자쓰!",
-  "404", "2026 웨이브", "2233", "Axis", "BE1", "exit(0)", "MOOD:E", "PolyStack", "Quadcore",
+  "Axis", "BE1", "exit(0)", "MOOD:E", "PolyStack", "Quadcore", "404", "2026 웨이브", "2233",
   "수신 팀 미지정",
 ];
 const success = (result) => ({ status: 200, body: { isSuccess: true, code: "COMMON200", message: "성공", result } });

@@ -28,7 +28,7 @@ export function getGuestbookTeams(entries: readonly GuestbookEntry[], selectedFi
   teamIds.delete(EVERYONE_RECIPIENT.teamName);
 
   return [...teamIds]
-    .toSorted(compareTeamNames)
+    .toSorted((first, second) => compareTeamNames(first, second, { englishBeforeNumbers: true }))
     .map((teamId) => ({ id: `team:${teamId}`, teamName: teamId || "수신 팀 미지정" }));
 }
 

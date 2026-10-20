@@ -7,7 +7,7 @@ export const EVERYONE_RECIPIENT: ProjectTeam = { id: "team:모두에게", teamNa
 export const GUESTBOOK_TEAMS: readonly ProjectTeam[] = [
   EVERYONE_RECIPIENT,
   ...PROJECTS.map(({ teamName }) => teamName)
-    .toSorted(compareTeamNames)
+    .toSorted((first, second) => compareTeamNames(first, second, { englishBeforeNumbers: true }))
     .map((teamName) => ({ id: `team:${teamName}`, teamName })),
 ];
 export const AUTHOR_MAX_LENGTH = 30;

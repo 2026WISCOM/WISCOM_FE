@@ -187,7 +187,7 @@ export const PROJECTS: Project[] = [
 			{ name: "정지민", roles: ["HW"] },
 			{ name: "차서연", roles: ["HW"] },
 		],
-		serviceUrl: "https://damdads.netlify.app/",
+		serviceUrl: "https://www.damdads.kro.kr/",
 		githubUrl: "https://github.com/orgs/2026-exit-0/repositories",
 	},
 	{

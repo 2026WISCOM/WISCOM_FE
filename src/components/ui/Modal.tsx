@@ -1,4 +1,4 @@
-import type { MouseEvent, ReactNode } from "react";
+import { useEffect, useRef, type MouseEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useModalDialog } from "../../hooks/useModalDialog";
 import CloseButton from "./CloseButton";
@@ -14,6 +14,12 @@ type ModalProps = {
 
 export default function Modal({ id, isOpen, labelledBy, onClose, children }: ModalProps) {
   const dialogRef = useModalDialog(isOpen);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Reset after showModal(), since closed dialogs retain their scroll position.
+    if (isOpen && scrollRef.current) scrollRef.current.scrollTop = 0;
+  }, [isOpen]);
 
   function handleBackdropClick(event: MouseEvent<HTMLElement>) {
     if (event.target === event.currentTarget) onClose();
@@ -37,6 +43,7 @@ export default function Modal({ id, isOpen, labelledBy, onClose, children }: Mod
         className="modal-close absolute top-4 right-4 z-10 text-on-dark"
       />
       <div
+        ref={scrollRef}
         className="flex h-full flex-col overflow-y-auto overscroll-contain"
         onClick={handleBackdropClick}
       >

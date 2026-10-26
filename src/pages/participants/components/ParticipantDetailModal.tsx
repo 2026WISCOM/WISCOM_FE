@@ -1,6 +1,6 @@
 import { useId } from "react";
 import { createSearchParams, generatePath, Link } from "react-router-dom";
-import bubbleImage from "../../../assets/bubble.png";
+import bubbleImage from "../../../assets/optimized/bubble.webp";
 import GlassLink from "../../../components/ui/GlassLink";
 import Modal from "../../../components/ui/Modal";
 import { ROUTES } from "../../../constants/routes";

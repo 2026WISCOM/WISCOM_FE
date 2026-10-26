@@ -20,8 +20,8 @@ export default function ExhibitionPage() {
 
 			<img
 				src={posterImage}
-				width={1442}
-				height={2007}
+				width={1200}
+				height={1670}
 				fetchPriority="high"
 				alt="2026 WISCOM 졸업 전시 포스터"
 				className="h-auto w-full shrink-0"

@@ -4,18 +4,18 @@ import Button from "../components/ui/Button";
 import { useDetailModal } from "../hooks/useDetailModal";
 import type { NeverEndingStory } from "../types/neverEndingStory";
 import NeverEndingStoryDetailModal from "./never-ending-story/components/NeverEndingStoryDetailModal";
-import { MOCK_NEVER_ENDING_STORIES } from "./never-ending-story/data/mockNeverEndingStories";
+import { NEVER_ENDING_STORIES } from "./never-ending-story/data/stories";
 import { STORIES_RELEASE_AT, useStoriesReleased } from "./never-ending-story/hooks/useStoriesReleased";
 
 const STORY_COLUMNS = [0, 1].map((column) =>
-  MOCK_NEVER_ENDING_STORIES.filter((_, index) => index % 2 === column),
+  NEVER_ENDING_STORIES.filter((_, index) => index % 2 === column),
 );
 
 export default function NeverEndingStoryPage() {
   const isReleased = useStoriesReleased();
   const detailId = useId();
   const { state } = useLocation();
-  const initialStory = MOCK_NEVER_ENDING_STORIES.find(
+  const initialStory = NEVER_ENDING_STORIES.find(
     (story) => story.participantId === state?.storyParticipantId,
   ) ?? null;
   const {
@@ -69,11 +69,13 @@ export default function NeverEndingStoryPage() {
                   className="w-full flex-col rounded-[5px] bg-white/40 p-2 text-left text-white"
                 >
                   <img
-                    src={story.image}
+                    src={story.thumbnail}
                     alt=""
                     loading="lazy"
-                    className="h-auto w-full object-cover"
-                    style={{ aspectRatio: `${story.width} / ${story.height}` }}
+                    decoding="async"
+                    width={story.width}
+                    height={story.height}
+                    className="h-auto w-full"
                   />
                   <span className="body-medium mt-2 w-full font-bold">{story.name}</span>
                   <span className="body-small w-full break-words"># {story.introduction}</span>

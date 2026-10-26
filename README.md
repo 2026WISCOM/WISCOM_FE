@@ -139,15 +139,17 @@ src/
 - 팀 목록 API는 미제공이므로 서버에 등록된 이름이 바뀌면 `data/projects.ts`의 팀명을 수정해야 합니다. 조회 응답에 다른 팀이 있으면 조회 필터에만 추가하고 작성 선택지에는 추가하지 않습니다.
 - 기존 ‘모두에게’ 조회 필터는 정확히 `teamId: "모두에게"`인 글만 표시하며, 빈 문자열은 ‘수신 팀 미지정’으로 따로 표시합니다.
 - `?teamId=팀명`과 기존 `?projectId=project-1` 링크는 해당 팀의 빈 목록도 보여줍니다. 링크의 팀이 ‘모두에게’ 또는 등록 가능한 12개 팀에 해당하지 않으면 작성창에서 대상을 다시 선택해야 합니다.
-- 프로젝트·참여자 API는 미제공이므로 전달받은 정보를 `data/projects.ts`에서 관리합니다. 이야기 콘텐츠는 별도 목업이며 API 명세를 받으면 연결합니다.
+- 프로젝트·참여자 API는 미제공이므로 전달받은 정보를 `data/projects.ts`에서 관리합니다. 이야기 콘텐츠는 제출된 `src/assets/behind.csv`를 반영한 정적 데이터입니다.
 
 새 API는 `api/`에 요청 함수, `types/`에 응답 타입을 추가하고 필요한 화면의 훅에서 호출합니다.
 페이지와 표시용 컴포넌트에는 요청 코드를 넣지 않습니다.
 
 참가자 모달의 소감 링크는 라우터 state의 `storyParticipantId`로 해당 이야기 상세를 바로 엽니다.
-이야기 목업은 `PARTICIPANTS`에서 파생하며, 동명이인도 이름 대신 `participantId`로 구분합니다. 실제 소감 제출 전에는 준비 중 문구를 표시합니다.
+이야기는 `pages/never-ending-story/data/submissions.json`의 제출 내용을 이름·팀명으로 `PARTICIPANTS`에 연결하며, 동명이인도 `participantId`로 구분합니다.
+`src/assets/behind/`에서 동명이인은 `이름(팀명)` 파일을 사용합니다. 목록과 상세 이미지는 너비에 맞춰 원래 비율을 유지하며, 본문의 줄바꿈도 그대로 표시합니다.
 
-소감 페이지는 한국시간 2026년 10월 29일 10:00부터 공개됩니다. 공개 전에는 블러 처리한 임시 카드와 안내만 렌더링하고, 참가자 바로가기도 상세를 열지 않습니다.
+`pages/never-ending-story/hooks/useStoriesReleased.ts`의 `STORIES_PREVIEW_ENABLED`는 `false`이며, 한국시간 2026년 10월 29일 10:00에 자동 공개됩니다.
+공개 전에는 블러 처리한 임시 카드와 안내만 렌더링하고, 참가자 바로가기도 상세를 열지 않습니다. 콘텐츠 확인을 위해 임시 공개가 필요하면 `STORIES_PREVIEW_ENABLED`를 `true`로 변경합니다.
 공개 시각은 `pages/never-ending-story/hooks/useStoriesReleased.ts`의 `STORIES_RELEASE_AT`에서 변경합니다. 열린 페이지와 백그라운드 탭 복귀 시 자동으로 다시 확인합니다.
 이 설정은 방문자 기기 시각을 기준으로 하는 화면 공개 제어입니다. 추후 비공개 소감을 API로 제공한다면 서버에서도 공개 시각 전 응답을 제한해야 합니다.
 
@@ -180,12 +182,17 @@ src/
 
 `src/assets/`의 원본은 보관하고, 화면에서는 `src/assets/optimized/`의 WebP 파일을 사용합니다.
 프로젝트 목록은 480px 썸네일, 상세·참여자 모달은 최대 1200px 이미지, 팀 사진은 최대 480px 이미지를 사용합니다.
-데스크톱 배경은 최대 2560px이며, 포스터와 모바일 배경은 원본 해상도를 유지합니다. 장소 이미지는 움직임과 재생 시간을 유지한 animated WebP입니다.
+데스크톱 배경은 최대 2560px, 포스터는 1200px, 모바일 배경은 원본 너비 786px입니다. 장소 이미지는 33프레임과 재생 시간을 유지한 animated WebP입니다.
 메인 로고는 `wiscom.png`에서 생성한 `optimized/wiscom.webp`를 사용하며, 768px 원본 너비와 투명 배경을 유지합니다.
+참여자 버블과 외부 링크 아이콘은 무손실 WebP, 파비콘은 64px PNG를 사용합니다. 대학 로고 SVG에 포함된 PNG는 최대 너비 450px의 투명 WebP로 제공합니다.
+소감 목록은 최대 480px 썸네일을 지연 로딩하고, 상세를 열 때 최대 960px 이미지를 불러옵니다. 원본이 480px 이하면 같은 이미지를 재사용합니다.
 
-원본 교체 후 Python과 [Pillow](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#webp)가 설치된 환경에서 `python scripts/optimize-images.py`를 실행하고 경량본도 함께 커밋합니다.
-스크립트는 출력 파일의 디코딩·크기·프레임 수·재생 시간을 검사합니다. 새 팀을 추가하면 `data/projects.ts`에서 `image`, `thumbnail`, `teamImage`를 연결합니다.
+원본 교체 후 Python, [Pillow](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#webp), `pillow-heif`가 설치된 환경에서 `python scripts/optimize-images.py`를 실행하고 경량본도 함께 커밋합니다.
+이 명령은 배경·포스터·팀·소감·아이콘·로고·파비콘을 모두 갱신하며, 출력 파일의 디코딩·크기·투명도·프레임 수·재생 시간을 검사합니다. 새 팀을 추가하면 `data/projects.ts`에서 `image`, `thumbnail`, `teamImage`를 연결합니다.
 일반 개발·배포 빌드에는 Python이 필요하지 않습니다. 원본 파일은 앱에서 참조하지 않으므로 Vite 배포 결과에 포함되지 않습니다.
+
+소감 CSV·이미지만 교체한 뒤에는 `python scripts/optimize-images.py --stories`로 해당 부분만 갱신할 수 있습니다.
+이 명령은 학번을 제외한 `submissions.json`과 `optimized/behind/*.webp`의 상세·썸네일 이미지를 생성하고, 동명이인 파일 연결·중복·이미지 누락을 검사합니다. HEIC도 WebP로 변환하며 원본은 보관합니다.
 
 ## 브라우저 확인
 
@@ -200,7 +207,7 @@ node scripts/check-guestbook-dropdown.mjs http://127.0.0.1:5178 http://127.0.0.1
 
 검사 스크립트는 연결된 브라우저 페이지를 방명록으로 이동시킵니다.
 
-`node scripts/check-story-links.mjs`는 같은 Vite·Chrome 환경에서 한국시간 공개 경계와 자동 전환, 공개 전 바로가기 차단, 참가자별 소감 연결, 동명이인 구분, 20px 간격과 글자 스타일, 상세 열기·닫기를 검사합니다. 테스트 중 브라우저 시각을 고정하며 종료 시 해제합니다.
+`node scripts/check-story-links.mjs`는 같은 Vite·Chrome 환경에서 임시 공개 상태(해제 시 예약 공개 동작), 53개 소감·이미지, 동명이인 연결, 모바일·데스크톱 이미지 비율, 본문 줄바꿈과 상세 열기·닫기를 검사합니다. 테스트 중 브라우저 시각을 고정하며 종료 시 해제합니다.
 
 `node scripts/check-booth-tooltips.mjs`는 동일한 Vite·Chrome 환경에서 홈·메뉴·참여자 상세 진입과 12개 프로젝트 안내를 검사합니다.
 320px·390px·데스크톱 화면에서 스튜디오와 툴팁의 겹침, 꼬리 방향과 간격, 닫기, 목록 스크롤을 확인합니다.

@@ -6,5 +6,6 @@ export type NeverEndingStory = {
   width: number;
   height: number;
   image: string;
+  thumbnail: string;
   content: string;
 };

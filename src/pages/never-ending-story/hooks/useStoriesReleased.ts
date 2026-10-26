@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 
 export const STORIES_RELEASE_AT = "2026-10-29T10:00:00+09:00";
+// Temporary review access. Set false to restore the scheduled release screen.
+export const STORIES_PREVIEW_ENABLED = false;
 const RELEASE_TIME = Date.parse(STORIES_RELEASE_AT);
 
 export function useStoriesReleased() {
-  const [isReleased, setIsReleased] = useState(() => Date.now() >= RELEASE_TIME);
+  const [isReleased, setIsReleased] = useState(() => STORIES_PREVIEW_ENABLED || Date.now() >= RELEASE_TIME);
 
   useEffect(() => {
     if (isReleased) return;

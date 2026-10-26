@@ -1,4 +1,4 @@
-import bubbleImage from "../../../assets/bubble.png";
+import bubbleImage from "../../../assets/optimized/bubble.webp";
 import type { Participant } from "../../../types/participant";
 import Button from "../../../components/ui/Button";
 

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { createSearchParams, generatePath, Link, useParams } from "react-router-dom";
-import githubLogo from "../assets/github-logo.png";
-import linkIcon from "../assets/link-icon.png";
+import githubLogo from "../assets/optimized/github-logo.webp";
+import linkIcon from "../assets/optimized/link-icon.webp";
 import ContentSection from "../components/ui/ContentSection";
 import GlassLink from "../components/ui/GlassLink";
 import { ROUTES } from "../constants/routes";

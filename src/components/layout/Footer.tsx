@@ -1,4 +1,4 @@
-import duksungLogo from "../../assets/duksung_logo.svg";
+import duksungLogo from "../../assets/optimized/duksung_logo.webp";
 import "./Footer.css";
 
 export default function Footer() {
@@ -16,6 +16,8 @@ export default function Footer() {
         alt="덕성여자대학교"
         width={150}
         height={34}
+        loading="lazy"
+        decoding="async"
         className="mx-auto mt-[34px] h-auto w-[150px]"
       />
     </footer>

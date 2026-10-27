@@ -3,6 +3,7 @@ import {
 	generatePath,
 	Link,
 	useLocation,
+	useNavigationType,
 	useSearchParams,
 } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
@@ -35,6 +36,7 @@ export default function BoothPage() {
 	const [searchParams] = useSearchParams();
 	const activeStudio = searchParams.get("studio");
 	const { state } = useLocation();
+	const navigationType = useNavigationType();
 	const [isTooltipDismissed, setIsTooltipDismissed] = useState(false);
 	const entryProject = PROJECTS.find(
 		(project) =>
@@ -52,7 +54,7 @@ export default function BoothPage() {
 			: undefined;
 
 	useEffect(() => {
-		if (!activeStudio || entryProject) return;
+		if (!activeStudio || navigationType !== "PUSH" || state?.scrollToStudio !== true) return;
 		document.getElementById(`studio-${activeStudio}`)?.scrollIntoView({
 			block: "start",
 			behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -60,7 +62,7 @@ export default function BoothPage() {
 				? "instant"
 				: "smooth",
 		});
-	}, [activeStudio, entryProject]);
+	}, [activeStudio, navigationType, state?.scrollToStudio]);
 
 	return (
 		<div className="bg-page pt-navbar pb-footer">

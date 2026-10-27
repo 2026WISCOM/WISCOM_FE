@@ -41,8 +41,22 @@ async function waitFor(expression) {
   assert.fail(`Timed out: ${expression}`);
 }
 async function navigate(path) {
+  const previousDocument = await evaluate("performance.timeOrigin");
   await send("Page.navigate", { url: `${appUrl}${path}` });
-  await waitFor(`location.pathname === ${JSON.stringify(path.split("?")[0])} && !!document.querySelector('main > *')`);
+  await waitFor(`performance.timeOrigin !== ${previousDocument} && document.readyState === 'complete' && location.pathname === ${JSON.stringify(path.split("?")[0])} && !!document.querySelector('main > *')`);
+}
+async function checkPlanEntry(studio) {
+  await waitFor(`location.pathname === '/booths' && new URLSearchParams(location.search).get('studio') === '${studio}' && !!document.querySelector('main button[aria-pressed=true]')`);
+  await evaluate("new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))");
+  assert.equal(await evaluate("document.querySelector('.app-content').scrollTop"), 0, "Entering a studio link must keep the floor plan visible");
+  const selected = await evaluate("[...document.querySelectorAll('main button[aria-pressed=true]')].map(button => Number(button.textContent.match(/\\d+/)[0]))");
+  assert.deepEqual(selected, [studio]);
+}
+
+async function selectStudio(studio) {
+  await evaluate(`[...document.querySelectorAll('main button[aria-pressed]')].find(button => Number(button.textContent.match(/\\d+/)[0]) === ${studio}).click()`);
+  await waitFor("document.querySelector('.app-content').scrollTop > 0");
+  assert.equal(await evaluate("new URLSearchParams(location.search).get('studio')"), String(studio));
 }
 const closeSelector = 'button[aria-label="툴팁 닫기"]';
 async function checkTooltip(studio, text, color, isGuide = false) {
@@ -128,17 +142,34 @@ try {
       await evaluate(`document.querySelector(${JSON.stringify(closeSelector)}).click()`);
       await waitFor(`!document.querySelector(${JSON.stringify(closeSelector)})`);
       assert.equal(await evaluate("document.querySelector('.app-content').scrollTop"), 0, "Dismissing must not jump to the list");
-      await evaluate(`[...document.querySelectorAll('button[aria-pressed]')].find(b => Number(b.textContent.match(/\\d+/)[0]) === ${project.studioNumber}).click()`);
-      await waitFor("document.querySelector('.app-content').scrollTop > 0");
+      await selectStudio(project.studioNumber);
       assert.equal(await evaluate(`!!document.querySelector(${JSON.stringify(closeSelector)})`), false, "Selecting a studio dismisses the entry tooltip");
+
+      await navigate(`/projects/${project.id}`);
+      await evaluate("document.querySelector('main a[href^=\"/booths?\"]').click()");
+      await checkPlanEntry(project.studioNumber);
+      await selectStudio(project.studioNumber);
     }
-    console.log(`PASS ${width}px: home/menu guides, all ${projects.length} participant projects, colors, tail direction/gap, no studio overlap, close and selection scroll`);
+    console.log(`PASS ${width}px: home/menu guides, all ${projects.length} participant and project detail links, colors, tail direction/gap, no studio overlap, close and click-only selection scroll`);
   }
   await navigate("/booths?studio=3");
-  await waitFor("document.querySelector('.app-content').scrollTop > 0");
+  await checkPlanEntry(3);
   assert.equal(await evaluate(`!!document.querySelector(${JSON.stringify(closeSelector)})`), false);
+  await selectStudio(3);
+  // The same selection must still scroll after manually returning to the plan.
+  await evaluate("document.querySelector('.app-content').scrollTop = 0");
+  await selectStudio(3);
+  await selectStudio(6);
+  await evaluate("history.back()");
+  await checkPlanEntry(3);
+  await evaluate("history.forward()");
+  await checkPlanEntry(6);
+  const previousDocument = await evaluate("performance.timeOrigin");
+  await send("Page.reload");
+  await waitFor(`performance.timeOrigin !== ${previousDocument} && document.readyState === 'complete' && !!document.querySelector('main button[aria-pressed=true]')`);
+  await checkPlanEntry(6);
   assert.deepEqual(exceptions, []);
-  console.log("PASS plain studio links retain list scrolling; no runtime errors");
+  console.log("PASS studio links, reload and history keep the plan visible; repeated/different studio clicks scroll; no runtime errors");
 } finally {
   clearTimeout(timeout);
   socket.close();

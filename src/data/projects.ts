@@ -163,6 +163,7 @@ export const PROJECTS: Project[] = [
 			{ name: "이채은", roles: ["Client", "AI", "HW"] },
 			{ name: "황민지", roles: ["Server", "AI"] },
 		],
+		githubUrl: "https://github.com/FeetFit/26_HF019",
 	},
 	{
 		id: "project-7",

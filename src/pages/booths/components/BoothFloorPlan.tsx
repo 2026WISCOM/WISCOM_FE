@@ -19,7 +19,7 @@ export default function BoothFloorPlan({ tooltip, onCloseTooltip }: BoothFloorPl
       const next = new URLSearchParams(previous);
       next.set("studio", String(studioNumber));
       return next;
-    });
+    }, { state: { scrollToStudio: true } });
   }
 
   return (
